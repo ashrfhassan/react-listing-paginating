@@ -6,6 +6,8 @@
       "dom.iterable",
       "esnext"
     ],
+    "declaration": true,
+    "declarationDir": "dist",
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -18,9 +20,20 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "sourceMap": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@components/*": [
+        "components/*"
+      ]
+    }
   },
   "include": [
-    "src"
-  ]
+    "src/**/*",
+    "**/*.js",
+    "**/*.ts",
+    "**/*.tsx",
+  ],
+  "exclude": ["node_modules", "dist"],
 }
