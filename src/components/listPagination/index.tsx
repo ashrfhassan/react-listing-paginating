@@ -6,13 +6,7 @@ export interface ListPaginationProps {
 }
 
 function ListPagination(props: ListPaginationProps) {
-  return <div>
-
-
-
-
-    
-  </div>;
+  return <div></div>;
 }
 
 export default ListPagination;
