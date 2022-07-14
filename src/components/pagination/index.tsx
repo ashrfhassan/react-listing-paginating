@@ -17,27 +17,34 @@ export interface PaginationProps {
   hasNextPrevious: boolean;
   previousContent?: string | React.ReactNode;
   nextContent?: string | React.ReactNode;
+  firstContent?: string | React.ReactNode;
+  lastContent?: string | React.ReactNode;
   hasFirstLast: boolean;
+  numberProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
+  previousProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
+  nextProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
+  firstProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
+  lastProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
   position?: 'start' | 'center' | 'end';
   changePage?: (
     pageNumber: number,
-    e: React.MouseEvent<HTMLButtonElement>
+    e?: React.MouseEvent<HTMLButtonElement>
   ) => void;
   previousPage?: (
     pageNumber: number,
-    e: React.MouseEvent<HTMLButtonElement>
+    e?: React.MouseEvent<HTMLButtonElement>
   ) => void;
   nextPage?: (
     pageNumber: number,
-    e: React.MouseEvent<HTMLButtonElement>
+    e?: React.MouseEvent<HTMLButtonElement>
   ) => void;
   firstPage?: (
     pageNumber: number,
-    e: React.MouseEvent<HTMLButtonElement>
+    e?: React.MouseEvent<HTMLButtonElement>
   ) => void;
   lastPage?: (
     pageNumber: number,
-    e: React.MouseEvent<HTMLButtonElement>
+    e?: React.MouseEvent<HTMLButtonElement>
   ) => void;
   styles?: {
     containerCustomClass?: string;
@@ -89,6 +96,7 @@ function Pagination(props: PaginationProps) {
     >
       {props.hasFirstLast && currentPage !== 1 && (
         <button
+          {...props.firstProps}
           className={`btn ${props.styles?.firstCustomClass || ''}`}
           onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
             setCurrentPage(currentPage !== 1 ? 1 : currentPage);
@@ -96,13 +104,14 @@ function Pagination(props: PaginationProps) {
               props.firstPage(currentPage !== 1 ? 1 : currentPage, e);
           }}
         >
-          {props.previousContent || (
+          {props.firstContent || (
             <FontAwesomeIcon icon={solid('angles-left')} size='xs' />
           )}
         </button>
       )}
       {props.hasNextPrevious && currentPage !== 1 && (
         <button
+          {...props.previousProps}
           className={`btn ${props.styles?.previousCustomClass || ''}`}
           onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
             setCurrentPage(currentPage !== 1 ? currentPage - 1 : currentPage);
@@ -127,6 +136,8 @@ function Pagination(props: PaginationProps) {
         return (
           <button
             key={index}
+            title={number.toString()}
+            {...props.numberProps}
             className={`btn ${number === currentPage ? 'active' : ''} ${
               props.styles?.numberCustomClass || ''
             }`}
@@ -141,6 +152,7 @@ function Pagination(props: PaginationProps) {
       })}
       {props.hasNextPrevious && currentPage !== pagesCount && (
         <button
+          {...props.nextProps}
           className={`btn ${props.styles?.nextCustomClass || ''}`}
           onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
             setCurrentPage(
@@ -153,13 +165,14 @@ function Pagination(props: PaginationProps) {
               );
           }}
         >
-          {props.previousContent || (
+          {props.nextContent || (
             <FontAwesomeIcon icon={solid('angle-right')} size='xs' />
           )}
         </button>
       )}
       {props.hasFirstLast && currentPage !== pagesCount && (
         <button
+          {...props.lastProps}
           className={`btn ${props.styles?.lastCustomClass || ''}`}
           onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
             setCurrentPage(
@@ -172,7 +185,7 @@ function Pagination(props: PaginationProps) {
               );
           }}
         >
-          {props.previousContent || (
+          {props.lastContent || (
             <FontAwesomeIcon icon={solid('angles-right')} size='xs' />
           )}
         </button>
