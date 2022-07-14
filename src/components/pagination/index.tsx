@@ -55,7 +55,7 @@ export interface PaginationProps {
   };
 }
 
-const Pagination = (props: PaginationProps) => {
+export const Pagination = (props: PaginationProps) => {
   const [pagesCount, setPagesCount] = useState(
     props.totalPages || (props.totalItems ?? 0) / props.itemsPerPage
   );
@@ -203,5 +203,3 @@ const Pagination = (props: PaginationProps) => {
     </div>
   );
 };
-
-export default Pagination;

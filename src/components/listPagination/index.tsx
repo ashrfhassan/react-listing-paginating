@@ -1,6 +1,6 @@
 import GridContentLoader from '@components/contentLoader/grid';
 import RowContentLoader from '@components/contentLoader/row';
-import Pagination from '@components/pagination';
+import { Pagination } from '@components/pagination';
 import React from 'react';
 import './style.scss';
 
@@ -27,7 +27,7 @@ export interface ListPaginationProps {
   };
 }
 
-const ListPagination = (props: ListPaginationProps) => {
+export const ListPagination = (props: ListPaginationProps) => {
   return (
     <div
       className={`container-fluid ${props.styles?.containerCustomClass || ''}`}
@@ -104,5 +104,3 @@ const ListPagination = (props: ListPaginationProps) => {
     </div>
   );
 };
-
-export default ListPagination;
