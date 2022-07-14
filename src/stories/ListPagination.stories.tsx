@@ -9,7 +9,18 @@ import Pagination, { PaginationProps } from '@components/pagination';
 export default {
   title: 'List Pagination',
   component: ListPagination,
-  argTypes: {},
+  argTypes: {
+    display: {
+      defaultValue: 'Grid',
+      control: 'select',
+      options: ['Grid', 'Rows'],
+    },
+    loader: {
+      defaultValue: 'ContentLoader',
+      control: 'select',
+      options: ['ContentLoader', 'Loading...'],
+    },
+  },
 } as ComponentMeta<typeof ListPagination>;
 
 const Template: ComponentStory<any> = (
@@ -36,7 +47,7 @@ const items = [
 export const Primary = Template.bind({});
 Primary.args = {
   items: items.slice(0, 20),
-  display: 'Rows',
+  display: 'Grid',
   numberOfItemsPerRow: 2,
   isLoading: true,
   loader: 'ContentLoader',
