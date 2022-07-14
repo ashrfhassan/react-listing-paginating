@@ -1,19 +1,20 @@
 import GridContentLoader from '@components/contentLoader/grid';
 import RowContentLoader from '@components/contentLoader/row';
-import Pagination, { PaginationProps } from '@components/pagination';
-import React, { useEffect, useState } from 'react';
+import Pagination from '@components/pagination';
+import React from 'react';
 import './style.scss';
 
 export interface ListPaginationProps {
-  items: React.ReactNode[];
+  children: React.ReactElement<typeof Pagination>;
+  items: JSX.Element[];
   numberOfItemsPerRow?: 2 | 3 | 4;
   display: 'Grid' | 'Rows';
   isLoading?: boolean;
   loader?: 'ContentLoader' | React.ReactNode;
-  pagination: PaginationProps;
   header?: React.ReactNode;
   footerLeftActions?: React.ReactNode;
   footerRightActions?: React.ReactNode;
+  paginationPosition?: 'start' | 'center' | 'end';
   styles?: {
     containerCustomClass?: string;
     headerCustomClass?: string;
@@ -26,7 +27,7 @@ export interface ListPaginationProps {
   };
 }
 
-function ListPagination(props: ListPaginationProps) {
+const ListPagination = (props: ListPaginationProps) => {
   return (
     <div
       className={`container-fluid ${props.styles?.containerCustomClass || ''}`}
@@ -86,12 +87,12 @@ function ListPagination(props: ListPaginationProps) {
         {/* pagination */}
         <div
           className={`col d-flex ${props.styles?.footerPaginationClass || ''} ${
-            props.pagination.position
-              ? 'justify-content-' + props.pagination.position
+            props.paginationPosition
+              ? 'justify-content-' + props.paginationPosition
               : ''
           }`}
         >
-          <Pagination {...props.pagination} />
+          {props.children}
         </div>
         {/* right footer */}
         {props.footerRightActions && (
@@ -102,6 +103,6 @@ function ListPagination(props: ListPaginationProps) {
       </div>
     </div>
   );
-}
+};
 
 export default ListPagination;

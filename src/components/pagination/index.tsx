@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   solid,
@@ -25,7 +25,6 @@ export interface PaginationProps {
   nextProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
   firstProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
   lastProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
-  position?: 'start' | 'center' | 'end';
   changePage?: (
     pageNumber: number,
     e?: React.MouseEvent<HTMLButtonElement>
@@ -56,11 +55,17 @@ export interface PaginationProps {
   };
 }
 
-function Pagination(props: PaginationProps) {
+const Pagination = (props: PaginationProps) => {
   const [pagesCount, setPagesCount] = useState(
     props.totalPages || (props.totalItems ?? 0) / props.itemsPerPage
   );
   const [currentPage, setCurrentPage] = useState(props.currentPage);
+
+  useEffect(() => {
+    setPagesCount(
+      props.totalPages || (props.totalItems ?? 0) / props.itemsPerPage
+    );
+  }, [props.totalPages, props.totalItems]);
 
   const generateNumbers = (
     maxDisplayedNumbers: number,
@@ -135,10 +140,10 @@ function Pagination(props: PaginationProps) {
           ? props.maxDisplayedNumbers
           : pagesCount,
         currentPage
-      ).map((number: number, index: number) => {
+      ).map((number: number) => {
         return (
           <button
-            key={index}
+            key={number}
             title={number.toString()}
             {...props.numberProps}
             className={`btn ${number === currentPage ? 'active' : ''} ${
@@ -154,7 +159,7 @@ function Pagination(props: PaginationProps) {
         );
       })}
       {/* next page */}
-      {props.hasNextPrevious && currentPage !== pagesCount && (
+      {props.hasNextPrevious && currentPage !== pagesCount && pagesCount !== 0 && (
         <button
           {...props.nextProps}
           className={`btn ${props.styles?.nextCustomClass || ''}`}
@@ -175,7 +180,7 @@ function Pagination(props: PaginationProps) {
         </button>
       )}
       {/* last page */}
-      {props.hasFirstLast && currentPage !== pagesCount && (
+      {props.hasFirstLast && currentPage !== pagesCount && pagesCount !== 0 && (
         <button
           {...props.lastProps}
           className={`btn ${props.styles?.lastCustomClass || ''}`}
@@ -197,6 +202,6 @@ function Pagination(props: PaginationProps) {
       )}
     </div>
   );
-}
+};
 
 export default Pagination;
