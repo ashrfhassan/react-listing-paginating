@@ -94,6 +94,7 @@ function Pagination(props: PaginationProps) {
     <div
       className={`btn-container ${props.styles?.containerCustomClass || ''}`}
     >
+      {/* first page */}
       {props.hasFirstLast && currentPage !== 1 && (
         <button
           {...props.firstProps}
@@ -109,6 +110,7 @@ function Pagination(props: PaginationProps) {
           )}
         </button>
       )}
+      {/* previous page */}
       {props.hasNextPrevious && currentPage !== 1 && (
         <button
           {...props.previousProps}
@@ -127,6 +129,7 @@ function Pagination(props: PaginationProps) {
           )}
         </button>
       )}
+      {/* page numbers */}
       {generateNumbers(
         props.maxDisplayedNumbers < pagesCount
           ? props.maxDisplayedNumbers
@@ -150,6 +153,7 @@ function Pagination(props: PaginationProps) {
           </button>
         );
       })}
+      {/* next page */}
       {props.hasNextPrevious && currentPage !== pagesCount && (
         <button
           {...props.nextProps}
@@ -170,6 +174,7 @@ function Pagination(props: PaginationProps) {
           )}
         </button>
       )}
+      {/* last page */}
       {props.hasFirstLast && currentPage !== pagesCount && (
         <button
           {...props.lastProps}

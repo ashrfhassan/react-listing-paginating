@@ -8,28 +8,30 @@ import React from 'react';
 export default {
   title: 'List Pagination',
   component: ListPagination,
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
+  argTypes: {},
 } as ComponentMeta<typeof ListPagination>;
 
 const Template: ComponentStory<typeof ListPagination> = (
   args: ListPaginationProps
 ) => <ListPagination {...args} />;
 
+// data
+const items = [
+  ...Array.from(
+    {
+      length: 1000,
+    },
+    (_, i) => i + 1
+  ),
+].map((val, index) => <div key={index}>Item {val}</div>);
+
 export const Primary = Template.bind({});
 Primary.args = {
-  items: [
-    ...Array.from(
-      {
-        length: 10,
-      },
-      (_, i) => i + 1
-    ),
-  ].map((val, index) => <div key={index}>Item {val}</div>),
-  display: 'Grid',
+  items: items.slice(0, 20),
+  display: 'Rows',
   numberOfItemsPerRow: 2,
-  isLoading: false,
+  isLoading: true,
+  loader: 'ContentLoader',
   header: <div>this is header.</div>,
   footerLeftActions: <div>this is left footer.</div>,
   footerRightActions: <div>this is right footer.</div>,
@@ -45,8 +47,8 @@ Primary.args = {
   },
   pagination: {
     position: 'center',
-    totalPages: 10,
-    currentPage: 5,
+    totalPages: 50,
+    currentPage: 1,
     itemsPerPage: 20,
     maxDisplayedNumbers: 6,
     hasFirstLast: true,
