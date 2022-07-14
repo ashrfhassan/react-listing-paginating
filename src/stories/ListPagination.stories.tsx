@@ -23,10 +23,13 @@ Primary.args = {
   isLoading: false,
   pagination: {
     currentPage: 5,
-    hasFirstLast: false,
-    hasNextPrevious: false,
+    hasFirstLast: true,
+    hasNextPrevious: true,
     itemsPerPage: 20,
     maxDisplayedNumbers: 6,
     totalPages: 10,
+    styles: {
+      numberCustomClass: 'btn-primary',
+    },
   },
 };

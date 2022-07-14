@@ -2,19 +2,16 @@ const path = require('path');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
-  "stories": [
-    "../src/**/*.stories.mdx",
-    "../src/**/*.stories.@(js|jsx|ts|tsx)"
+  stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  addons: [
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/addon-interactions',
+    '@storybook/preset-create-react-app',
   ],
-  "addons": [
-    "@storybook/addon-links",
-    "@storybook/addon-essentials",
-    "@storybook/addon-interactions",
-    "@storybook/preset-create-react-app"
-  ],
-  "framework": "@storybook/react",
-  "core": {
-    "builder": "@storybook/builder-webpack5"
+  framework: '@storybook/react',
+  core: {
+    builder: '@storybook/builder-webpack5',
   },
   webpackFinal: async (config, { configType }) => {
     // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'
@@ -35,7 +32,7 @@ module.exports = {
         {
           loader: 'babel-loader',
           options: {
-            plugins: ['istanbul'],
+            plugins: ['istanbul', 'macros'],
             presets: [
               [
                 '@babel/preset-react',
@@ -64,12 +61,21 @@ module.exports = {
 
     config.resolve.plugins = [
       new TsconfigPathsPlugin({
-        configFile: path.resolve(__dirname, '../tsconfig.json')
+        configFile: path.resolve(__dirname, '../tsconfig.json'),
       }),
     ];
 
-    config.resolve.extensions = ['.mjs', '.js', '.jsx', '.ts', '.tsx', '.json', '.cjs', '.css'];
+    config.resolve.extensions = [
+      '.mjs',
+      '.js',
+      '.jsx',
+      '.ts',
+      '.tsx',
+      '.json',
+      '.cjs',
+      '.css',
+    ];
 
     return config;
   },
-}
+};

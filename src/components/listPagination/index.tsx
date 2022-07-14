@@ -24,18 +24,16 @@ function ListPagination(props: ListPaginationProps) {
 
   return (
     <div
-      className={`'container-fluid' ${
-        props.styles?.containerCustomClass || ''
-      }`}
+      className={`container-fluid ${props.styles?.containerCustomClass || ''}`}
     >
       {/* Header */}
-      <div className={`'row' ${props.styles?.headerCustomClass || ''}`}>
+      <div className={`row ${props.styles?.headerCustomClass || ''}`}>
         {props.header}
       </div>
       {/* Data */}
-      <div className={`'row' ${props.styles?.dataCustomClass || ''}`}></div>
+      <div className={`row ${props.styles?.dataCustomClass || ''}`}></div>
       {/* Footer */}
-      <div className={`'row' ${props.styles?.footerCustomClass || ''}`}>
+      <div className={`row ${props.styles?.footerCustomClass || ''}`}>
         {props.footerLeftActions && (
           <div className='col'>{props.footerLeftActions}</div>
         )}
