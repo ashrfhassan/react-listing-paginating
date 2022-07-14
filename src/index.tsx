@@ -1,5 +1,1 @@
-import ListPagination from './components/listPagination';
-
-exports = {
-  ListPagination,
-};
+export * from './components/listPagination';

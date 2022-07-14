@@ -19,4 +19,14 @@ const Template: ComponentStory<typeof ListPagination> = (
 export const Primary = Template.bind({});
 Primary.args = {
   items: [],
+  display: 'Grid',
+  isLoading: false,
+  pagination: {
+    currentPage: 5,
+    hasFirstLast: false,
+    hasNextPrevious: false,
+    itemsPerPage: 20,
+    maxDisplayedNumbers: 6,
+    totalPages: 10,
+  },
 };
