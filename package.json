@@ -32,8 +32,13 @@
     "format": "prettier --write src/**/*.{js,jsx,ts,tsx,css,md,json} --config ./.prettierrc",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "prepare": "husky install",
-    "test": "jest"
+    "build": "npm run lint && npm run format && tsc",
+    "test": "jest",
+    "prepare": "husky install && npm run build",
+    "prepublishOnly": "npm test && npm run lint && npm run format",
+    "preversion": "npm run lint && npm run format",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
   },
   "eslintConfig": {
     "extends": [
