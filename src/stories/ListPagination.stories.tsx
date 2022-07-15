@@ -40,7 +40,7 @@ const Template: ComponentStory<any> = (
 const items = [
   ...Array.from(
     {
-      length: 500,
+      length: 1000,
     },
     (_, i) => i + 1
   ),
