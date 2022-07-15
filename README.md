@@ -1,46 +1,139 @@
-# etting Started with Create React App
+# React Listing and Paginating
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![NPM](https://nodei.co/npm/listing-pagination.svg?downloads=true&downloadRank=true)](https://www.npmjs.com/package/listing-pagination/)&nbsp;&nbsp;
 
-## Available Scripts
+[![NPM version][npm-image]][npm-url] [![NPM downloads][download-image]][download-url] [![Issues need help][help-wanted-image]][help-wanted-url]
 
-In the project directory, you can run:
+[npm-image]: https://img.shields.io/npm/v/listing-pagination.svg?style=flat-square
+[npm-url]: https://www.npmjs.com/package/listing-pagination
+[download-image]: https://img.shields.io/npm/dm/listing-pagination.svg?style=flat-square
+[download-url]: https://www.npmjs.com/package/listing-pagination
+[help-wanted-image]: https://img.shields.io/badge/using-issues--helper-orange?style=flat-square
+[help-wanted-url]: https://github.com/ashrfhassan/listing-paginating/issues
 
-### `npm start`
+## ✨ Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- 📦 flixible to customize and injecting components.
+- 🛡 Written in TypeScript with predictable static types.
+- ⚙️ loader and content loading.
+- 🎨 simple and easy styles that can be overwritten.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 🖥 Environment Support
 
-### `npm test`
+- Modern browsers and Internet Explorer 11
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Safari |
+| --- | --- | --- | --- |
+| IE11, Edge | last 2 versions | last 2 versions | last 2 versions |
 
-### `npm run build`
+## 📦 Install
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+npm install --save listing-pagination
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+yarn add listing-pagination
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🔨 Usage
 
-### `npm run eject`
+```jsx
+import { useState } from 'react';
+import { ListPagination, Pagination } from 'listing-pagination';
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+const App = () => {
+  const [totalPages, setTotalPages] = useState(0);
+  const [items, setItems] = useState<any>([]);
+  const changePage = async (pageNumber: number) => {
+    // api call using pageNumber
+  };
+  return (
+    <>
+      <ListPagination
+        items={items}
+        display={'Grid'}
+        numberOfItemsPerRow={2}
+        isLoading={false}
+        loader={'ContentLoader'}
+        styles={{
+          itemCustomClass: 'd-flex justify-content-center',
+        }}
+        paginationPosition={'center'}
+      >
+        <Pagination
+          totalPages={totalPages}
+          changePage={changePage}
+          currentPage={1}
+          itemsPerPage={20}
+          maxDisplayedNumbers={6}
+          hasFirstLast={true}
+          hasNextPrevious={true}
+          firstProps={{
+            title: 'First page',
+          }}
+          lastProps={{
+            title: 'Last page',
+          }}
+          previousProps={{
+            title: 'Previous page',
+          }}
+          nextProps={{
+            title: 'Next page',
+          }}
+          styles={{
+            numberCustomClass: 'btn-primary',
+          }}
+        />
+      </ListPagination>
+    </>
+  );
+};
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### TypeScript
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+`this package` is written in TypeScript, check [Use in TypeScript](https://www.typescriptlang.org/) to get started.
 
-## Learn More
+### listing Props
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+| Prop | Type | Required | Description |
+|:---|:---|:---|:---|
+| children | `React Node` | false | should be paginating component as a child. |
+| items | `Array of React Node` | true | an array of components to be displayed. |
+| numberOfItemsPerRow | `Number` | false | number of items each row it only available in display `Grid`. |
+| display | `Grid , Rows` | true | items displaying style. |
+| isLoading | `Boolean` | false | used for loading time / default [false]. |
+| loader | `React Node , 'ContentLoader'` | false | React element to use as a placeholder for items (ContentLoader for prebuilt loader). |
+| header | `React Node` | false | React element to use as a header. |
+| footerLeftActions | `React Node` | false | React element to use as a left section next to children. |
+| footerRightActions | `React Node` | false | React element to use as a right section next to children. |
+| paginationPosition | `'start' , 'center' , 'end'` | false | positioning children inside footer. |
+| styles | `Object` | false | contains classes for styling different sections. |
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Paginating Props
+
+| Prop | Type | Required | Description |
+|:---|:---|:---|:---|
+| currentPage | `Number` | true | current page number. |
+| totalPages | `Number` | false | number of total pages. |
+| totalItems | `Number` | false | number of total items. |
+| itemsPerPage | `Number` | true | number of displayed items per page. |
+| maxDisplayedNumbers | `1,2,3,4,5,6,7,8` | true | number of displayed pagination buttons to be shown. |
+| hasNextPrevious | `Boolean` | true | whether to display previous/next buttons or not. |
+| previousContent | `React Node` | false | React element to use as a content for previous button. |
+| nextContent | `React Node` | false | React element to use as a content for next button. |
+| hasFirstLast | `Boolean` | true | whether to display first/last buttons or not. |
+| firstContent | `React Node` | false | React element to use as a content for first button. |
+| lastContent | `React Node` | false | React element to use as a content for last button. |
+| changePage | `Function (pageNumber, event?)` | false | function invoked after clicking on a paginating number. |
+| previousPage | `Function (pageNumber, event?)` | false | function invoked after clicking on a paginating previous button. |
+| nextPage | `Function (pageNumber, event?)` | false | function invoked after clicking on a paginating next button. |
+| firstPage | `Function (pageNumber, event?)` | false | function invoked after clicking on a paginating first button. |
+| lastPage | `Function (pageNumber, event?)` | false | function invoked after clicking on a paginating last button. |
+| styles | `Object` | false | contains classes for styling different sections. |
+
+## 🔗 Links
+
+- [Change Log](CHANGELOG.md)

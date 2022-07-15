@@ -17,9 +17,9 @@ export interface PaginationProps {
   hasNextPrevious: boolean;
   previousContent?: string | React.ReactNode;
   nextContent?: string | React.ReactNode;
+  hasFirstLast: boolean;
   firstContent?: string | React.ReactNode;
   lastContent?: string | React.ReactNode;
-  hasFirstLast: boolean;
   numberProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
   previousProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
   nextProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
