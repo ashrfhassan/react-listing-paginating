@@ -1,7 +1,7 @@
 {
   "name": "list-pagination",
   "version": "1.1.0",
-  "private": true,
+  "private": false,
   "description": "react listing and paginating component.",
   "main": "src/index.tsx",
   "repository": {
