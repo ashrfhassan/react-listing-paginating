@@ -2,6 +2,25 @@
   "name": "list-pagination",
   "version": "1.0.0",
   "private": true,
+  "description": "react listing and paginating component.",
+  "main": "src/index.tsx",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ashrfhassan/react-listing-paginating.git"
+  },
+  "keywords": [
+    "React",
+    "Listing",
+    "Paginating",
+    "Lazyloading",
+    "Data pagination"
+  ],
+  "author": "ash hassan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ashrfhassan/react-listing-paginating/issues"
+  },
+  "homepage": "https://github.com/ashrfhassan/react-listing-paginating#readme",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/free-regular-svg-icons": "^6.1.1",
