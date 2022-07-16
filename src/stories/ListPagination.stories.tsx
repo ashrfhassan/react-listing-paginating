@@ -40,7 +40,7 @@ const Template: ComponentStory<any> = (
 const items = [
   ...Array.from(
     {
-      length: 1000,
+      length: 2000,
     },
     (_, i) => i + 1
   ),
@@ -68,7 +68,7 @@ Primary.args = {
     rightfooterClass: 'd-flex justify-content-center',
   },
   pagination: {
-    totalPages: 50,
+    totalPages: 100,
     currentPage: 1,
     itemsPerPage: 20,
     maxDisplayedNumbers: 6,
