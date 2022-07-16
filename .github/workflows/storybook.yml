@@ -3,8 +3,7 @@ on:
   push:
     branches:
       - storybook
-permissions:
-  contents: write
+    paths: ['src/**']
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -21,7 +20,7 @@ jobs:
           npm install
           npm run build-storybook
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@4.3.4
+        uses: JamesIves/github-pages-deploy-action@3.6.2
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: storybook # The branch the action should deploy to.
