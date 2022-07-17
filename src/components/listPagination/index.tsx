@@ -47,15 +47,15 @@ export const ListPagination = (props: ListPaginationProps) => {
             {props.isLoading &&
             props.loader &&
             props.loader === 'ContentLoader' ? (
-              <>
+              <React.Fragment>
                 {props.display === 'Grid' ? (
                   <GridContentLoader />
                 ) : (
                   <RowContentLoader />
                 )}
-              </>
+              </React.Fragment>
             ) : (
-              <>
+              <React.Fragment>
                 {props.items.map((val, index) => {
                   return (
                     <div
@@ -71,7 +71,7 @@ export const ListPagination = (props: ListPaginationProps) => {
                     </div>
                   );
                 })}
-              </>
+              </React.Fragment>
             )}
           </div>
         </React.Fragment>

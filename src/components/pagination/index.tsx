@@ -135,29 +135,31 @@ export const Pagination = (props: PaginationProps) => {
         </button>
       )}
       {/* page numbers */}
-      {generateNumbers(
-        props.maxDisplayedNumbers < pagesCount
-          ? props.maxDisplayedNumbers
-          : pagesCount,
-        currentPage
-      ).map((number: number) => {
-        return (
-          <button
-            key={number}
-            title={number.toString()}
-            {...props.numberProps}
-            className={`btn ${number === currentPage ? 'active' : ''} ${
-              props.styles?.numberCustomClass || ''
-            }`}
-            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-              setCurrentPage(number);
-              props.changePage && props.changePage(number, e);
-            }}
-          >
-            {number}
-          </button>
-        );
-      })}
+      <React.Fragment>
+        {generateNumbers(
+          props.maxDisplayedNumbers < pagesCount
+            ? props.maxDisplayedNumbers
+            : pagesCount,
+          currentPage
+        ).map((number: number) => {
+          return (
+            <button
+              key={number}
+              title={number.toString()}
+              {...props.numberProps}
+              className={`btn ${number === currentPage ? 'active' : ''} ${
+                props.styles?.numberCustomClass || ''
+              }`}
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                setCurrentPage(number);
+                props.changePage && props.changePage(number, e);
+              }}
+            >
+              {number}
+            </button>
+          );
+        })}
+      </React.Fragment>
       {/* next page */}
       {props.hasNextPrevious && currentPage !== pagesCount && pagesCount !== 0 && (
         <button
