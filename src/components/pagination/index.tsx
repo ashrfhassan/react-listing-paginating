@@ -2,10 +2,11 @@ import _ from 'lodash';
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  solid,
-  regular,
-  brands,
-} from '@fortawesome/fontawesome-svg-core/import.macro';
+  faAngleLeft,
+  faAngleRight,
+  faAnglesLeft,
+  faAnglesRight,
+} from '@fortawesome/free-solid-svg-icons';
 import './style.scss';
 
 export interface PaginationProps {
@@ -111,7 +112,7 @@ export const Pagination = (props: PaginationProps) => {
           }}
         >
           {props.firstContent || (
-            <FontAwesomeIcon icon={solid('angles-left')} size='xs' />
+            <FontAwesomeIcon icon={faAnglesLeft} size='xs' />
           )}
         </button>
       )}
@@ -130,7 +131,7 @@ export const Pagination = (props: PaginationProps) => {
           }}
         >
           {props.previousContent || (
-            <FontAwesomeIcon icon={solid('angle-left')} size='xs' />
+            <FontAwesomeIcon icon={faAngleLeft} size='xs' />
           )}
         </button>
       )}
@@ -177,7 +178,7 @@ export const Pagination = (props: PaginationProps) => {
           }}
         >
           {props.nextContent || (
-            <FontAwesomeIcon icon={solid('angle-right')} size='xs' />
+            <FontAwesomeIcon icon={faAngleRight} size='xs' />
           )}
         </button>
       )}
@@ -198,7 +199,7 @@ export const Pagination = (props: PaginationProps) => {
           }}
         >
           {props.lastContent || (
-            <FontAwesomeIcon icon={solid('angles-right')} size='xs' />
+            <FontAwesomeIcon icon={faAnglesRight} size='xs' />
           )}
         </button>
       )}

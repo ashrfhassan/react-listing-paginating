@@ -2,7 +2,7 @@
 
 exports[`renders component 1`] = `
 <svg
-  aria-labelledby="6zwazy-aria"
+  aria-labelledby="cwetws-aria"
   height="100%"
   id={null}
   role="img"
@@ -11,17 +11,17 @@ exports[`renders component 1`] = `
   width="100%"
 >
   <title
-    id="6zwazy-aria"
+    id="cwetws-aria"
   >
     Loading...
   </title>
   <rect
-    clipPath="url(#6zwazy-diff)"
+    clipPath="url(#cwetws-diff)"
     height="100%"
     role="presentation"
     style={
       Object {
-        "fill": "url(#6zwazy-animated-diff)",
+        "fill": "url(#cwetws-animated-diff)",
       }
     }
     width="100%"
@@ -30,7 +30,7 @@ exports[`renders component 1`] = `
   />
   <defs>
     <clipPath
-      id="6zwazy-diff"
+      id="cwetws-diff"
     >
       <rect
         height="200"
@@ -466,7 +466,7 @@ exports[`renders component 1`] = `
       />
     </clipPath>
     <linearGradient
-      id="6zwazy-animated-diff"
+      id="cwetws-animated-diff"
     >
       <stop
         offset="0%"

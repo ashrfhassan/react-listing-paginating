@@ -4,14 +4,22 @@ const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const pkg = require('./package.json');
 
 module.exports = {
   entry: {
-    index: './src/index.tsx',
+    index: './src/index.ts',
   },
   target: 'web',
-  devtool: 'source-map',
-  plugins: [new CleanWebpackPlugin(), new webpack.ids.HashedModuleIdsPlugin()],
+  devtool: 'inline-source-map',
+  plugins: [
+    new CleanWebpackPlugin(),
+    new webpack.ids.HashedModuleIdsPlugin(),
+    new webpack.ProvidePlugin({
+      process: require.resolve('process/browser'),
+    }),
+  ],
+  externals: Object.keys(pkg.dependencies),
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
     modules: [path.resolve(__dirname, 'src'), 'node_modules'],
@@ -58,22 +66,11 @@ module.exports = {
         },
       }),
     ],
-    splitChunks: {
-      chunks: 'all',
-      minSize: 0,
-      maxSize: 230000,
-      minChunks: 1,
-      cacheGroups: {
-        defaultVendors: {
-          name(module, chunks, cacheGroupKey) {
-            return 'bundle/chunk';
-          },
-        },
-      },
-    },
   },
   output: {
     filename: '[name].js',
+    chunkFilename: 'bundle/[name].chunk-[contenthash].js',
+    publicPath: path.resolve(__dirname, 'dist'),
     path: path.resolve(__dirname, 'dist'),
     clean: true,
     library: {
@@ -90,8 +87,8 @@ module.exports = {
           options: {
             presets: [
               '@babel/preset-env',
-              '@babel/preset-react',
-              '@babel/typescript',
+              ['@babel/preset-react', { runtime: 'automatic' }],
+              '@babel/preset-typescript',
             ],
           },
         },
