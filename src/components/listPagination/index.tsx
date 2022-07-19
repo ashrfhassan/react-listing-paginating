@@ -1,9 +1,13 @@
-import GridContentLoader from '@components/contentLoader/grid';
-import RowContentLoader from '@components/contentLoader/row';
-import { Pagination } from '@components/pagination';
 import React from 'react';
 import './style.scss';
 
+const GridContentLoader = React.lazy(() => import('../contentLoader/grid'));
+const RowContentLoader = React.lazy(() => import('../contentLoader/row'));
+const Pagination = React.lazy(() =>
+  import('../pagination').then((module) => ({
+    default: module.Pagination,
+  }))
+);
 export interface ListPaginationProps {
   children: React.ReactElement<typeof Pagination>;
   items: JSX.Element[];
@@ -47,15 +51,15 @@ export const ListPagination = (props: ListPaginationProps) => {
             {props.isLoading &&
             props.loader &&
             props.loader === 'ContentLoader' ? (
-              <>
+              <React.Fragment>
                 {props.display === 'Grid' ? (
                   <GridContentLoader />
                 ) : (
                   <RowContentLoader />
                 )}
-              </>
+              </React.Fragment>
             ) : (
-              <>
+              <React.Fragment>
                 {props.items.map((val, index) => {
                   return (
                     <div
@@ -71,7 +75,7 @@ export const ListPagination = (props: ListPaginationProps) => {
                     </div>
                   );
                 })}
-              </>
+              </React.Fragment>
             )}
           </div>
         </React.Fragment>
