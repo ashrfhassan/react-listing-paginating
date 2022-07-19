@@ -40,7 +40,7 @@ module.exports = {
                   runtime: 'automatic',
                 },
               ],
-              '@babel/typescript',
+              '@babel/preset-typescript',
               [
                 '@babel/env',
                 {

@@ -6,7 +6,6 @@ import {
 } from '@components/listPagination';
 import { useState, useEffect } from 'react';
 import { Pagination, PaginationProps } from '@components/pagination';
-import {} from '../index';
 
 export default {
   title: 'List Pagination',
