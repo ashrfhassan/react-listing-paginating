@@ -1,10 +1,14 @@
 import React from 'react';
 import './style.scss';
 
-const GridContentLoader = React.lazy(() => import('../contentLoader/grid'));
-const RowContentLoader = React.lazy(() => import('../contentLoader/row'));
+const GridContentLoader = React.lazy(
+  () => import('@components/contentLoader/grid')
+);
+const RowContentLoader = React.lazy(
+  () => import('@components/contentLoader/row')
+);
 const Pagination = React.lazy(() =>
-  import('../pagination').then((module) => ({
+  import('@components/pagination').then((module) => ({
     default: module.Pagination,
   }))
 );
