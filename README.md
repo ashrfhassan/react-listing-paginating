@@ -61,7 +61,6 @@ const App = () => {
         styles={{
           itemCustomClass: 'd-flex justify-content-center',
         }}
-        paginationPosition={'center'}
       >
         <Pagination
           totalPages={totalPages}
@@ -84,6 +83,7 @@ const App = () => {
             title: 'Next page',
           }}
           styles={{
+            position={'center'}
             numberCustomClass: 'btn-primary',
           }}
         />
@@ -111,7 +111,6 @@ const App = () => {
 | header | `React Node` | false | React element to use as a header. |
 | footerLeftActions | `React Node` | false | React element to use as a left section next to children. |
 | footerRightActions | `React Node` | false | React element to use as a right section next to children. |
-| paginationPosition | `'start' , 'center' , 'end'` | false | positioning children inside footer. |
 | styles | `Object` | false | contains classes for styling different sections. |
 
 ### Paginating Props
@@ -135,6 +134,7 @@ const App = () => {
 | firstPage | `Function (pageNumber, event?)` | false | function invoked after clicking on a paginating first button. |
 | lastPage | `Function (pageNumber, event?)` | false | function invoked after clicking on a paginating last button. |
 | styles | `Object` | false | contains classes for styling different sections. |
+| styles.position | `'start' , 'center' , 'end'` | false | positioning buttons horizontally. |
 
 ## 🔗 Links
 

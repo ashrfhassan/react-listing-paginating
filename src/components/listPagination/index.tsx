@@ -22,7 +22,6 @@ export interface ListPaginationProps {
   header?: React.ReactNode;
   footerLeftActions?: React.ReactNode;
   footerRightActions?: React.ReactNode;
-  paginationPosition?: 'start' | 'center' | 'end';
   styles?: {
     containerCustomClass?: string;
     headerCustomClass?: string;
@@ -93,13 +92,7 @@ export const ListPagination = (props: ListPaginationProps) => {
           </div>
         )}
         {/* pagination */}
-        <div
-          className={`col d-flex ${props.styles?.footerPaginationClass || ''} ${
-            props.paginationPosition
-              ? 'justify-content-' + props.paginationPosition
-              : ''
-          }`}
-        >
+        <div className={`col ${props.styles?.footerPaginationClass || ''} `}>
           {props.children}
         </div>
         {/* right footer */}

@@ -55,7 +55,6 @@ Primary.args = {
   header: <div>this is header.</div>,
   footerLeftActions: <div>this is left footer.</div>,
   footerRightActions: <div>this is right footer.</div>,
-  paginationPosition: 'center',
   styles: {
     containerCustomClass: '',
     headerCustomClass: 'text-center',
@@ -110,6 +109,7 @@ Primary.args = {
       },
     },
     styles: {
+      position: 'center',
       numberCustomClass: 'btn-primary',
       firstCustomClass: 'btn-primary',
       lastCustomClass: 'btn-primary',
@@ -195,7 +195,6 @@ Asynchronous.args = {
   styles: {
     itemCustomClass: 'd-flex justify-content-center',
   },
-  paginationPosition: 'center',
   pagination: {
     currentPage: 1,
     itemsPerPage: 20,
@@ -215,6 +214,7 @@ Asynchronous.args = {
       title: 'Next page',
     },
     styles: {
+      position: 'right',
       numberCustomClass: 'btn-primary',
       firstCustomClass: 'btn-primary',
       lastCustomClass: 'btn-primary',
