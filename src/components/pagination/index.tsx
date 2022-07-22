@@ -9,16 +9,14 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import './style.scss';
 
-export interface PaginationProps {
+interface PaginationBaseProps {
   currentPage: number;
-  totalPages?: number;
-  totalItems?: number;
   itemsPerPage: number;
-  maxDisplayedNumbers: 1 | 2 | 3 | 3 | 4 | 5 | 6 | 7 | 8;
-  hasNextPrevious: boolean;
+  maxDisplayedNumbers?: 1 | 2 | 3 | 3 | 4 | 5 | 6 | 7 | 8;
+  hasNextPrevious?: boolean;
   previousContent?: string | React.ReactNode;
   nextContent?: string | React.ReactNode;
-  hasFirstLast: boolean;
+  hasFirstLast?: boolean;
   firstContent?: string | React.ReactNode;
   lastContent?: string | React.ReactNode;
   numberProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
@@ -47,6 +45,7 @@ export interface PaginationProps {
     e?: React.MouseEvent<HTMLButtonElement>
   ) => void;
   styles?: {
+    position?: 'start' | 'center' | 'end';
     containerCustomClass?: string;
     numberCustomClass?: string;
     nextCustomClass?: string;
@@ -56,17 +55,44 @@ export interface PaginationProps {
   };
 }
 
-export const Pagination = (props: PaginationProps) => {
+interface RequireTotalItems extends PaginationBaseProps {
+  totalItems: number;
+}
+
+interface RequireTotalPages extends PaginationBaseProps {
+  totalPages: number;
+}
+
+export type PaginationProps = RequireTotalItems | RequireTotalPages;
+
+export const Pagination = (
+  props: PaginationProps = {
+    currentPage: 1,
+    totalItems: 1000,
+    totalPages: 20,
+    itemsPerPage: 20,
+    maxDisplayedNumbers: 6,
+    hasNextPrevious: false,
+    hasFirstLast: false,
+  }
+) => {
   const [pagesCount, setPagesCount] = useState(
-    props.totalPages || (props.totalItems ?? 0) / props.itemsPerPage
+    'totalPages' in props
+      ? props.totalPages
+      : undefined || props.totalItems / props.itemsPerPage
   );
   const [currentPage, setCurrentPage] = useState(props.currentPage);
 
-  useEffect(() => {
-    setPagesCount(
-      props.totalPages || (props.totalItems ?? 0) / props.itemsPerPage
-    );
-  }, [props.totalPages, props.totalItems]);
+  useEffect(
+    () => {
+      setPagesCount(
+        'totalPages' in props
+          ? props.totalPages
+          : undefined || props.totalItems / props.itemsPerPage
+      );
+    },
+    'totalPages' in props ? [props.totalPages] : [props.totalItems]
+  );
 
   const generateNumbers = (
     maxDisplayedNumbers: number,
@@ -98,111 +124,134 @@ export const Pagination = (props: PaginationProps) => {
 
   return (
     <div
-      className={`btn-container ${props.styles?.containerCustomClass || ''}`}
+      className={`container-fluid btn-container ${
+        props.styles?.containerCustomClass || ''
+      }`}
     >
-      {/* first page */}
-      {props.hasFirstLast && currentPage !== 1 && (
-        <button
-          {...props.firstProps}
-          className={`btn ${props.styles?.firstCustomClass || ''}`}
-          onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-            setCurrentPage(currentPage !== 1 ? 1 : currentPage);
-            props.firstPage &&
-              props.firstPage(currentPage !== 1 ? 1 : currentPage, e);
-          }}
+      <div className={'row'}>
+        <div
+          className={`col d-flex ${
+            props.styles?.position
+              ? 'justify-content-' + props.styles?.position
+              : ''
+          }`}
         >
-          {props.firstContent || (
-            <FontAwesomeIcon icon={faAnglesLeft} size='xs' />
-          )}
-        </button>
-      )}
-      {/* previous page */}
-      {props.hasNextPrevious && currentPage !== 1 && (
-        <button
-          {...props.previousProps}
-          className={`btn ${props.styles?.previousCustomClass || ''}`}
-          onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-            setCurrentPage(currentPage !== 1 ? currentPage - 1 : currentPage);
-            props.previousPage &&
-              props.previousPage(
-                currentPage !== 1 ? currentPage - 1 : currentPage,
-                e
-              );
-          }}
-        >
-          {props.previousContent || (
-            <FontAwesomeIcon icon={faAngleLeft} size='xs' />
-          )}
-        </button>
-      )}
-      {/* page numbers */}
-      <React.Fragment>
-        {generateNumbers(
-          props.maxDisplayedNumbers < pagesCount
-            ? props.maxDisplayedNumbers
-            : pagesCount,
-          currentPage
-        ).map((number: number) => {
-          return (
-            <button
-              key={number}
-              title={number.toString()}
-              {...props.numberProps}
-              className={`btn ${number === currentPage ? 'active' : ''} ${
-                props.styles?.numberCustomClass || ''
-              }`}
-              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                setCurrentPage(number);
-                props.changePage && props.changePage(number, e);
-              }}
-            >
-              {number}
-            </button>
-          );
-        })}
-      </React.Fragment>
-      {/* next page */}
-      {props.hasNextPrevious && currentPage !== pagesCount && pagesCount !== 0 && (
-        <button
-          {...props.nextProps}
-          className={`btn ${props.styles?.nextCustomClass || ''}`}
-          onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-            setCurrentPage(
-              currentPage !== pagesCount ? currentPage + 1 : currentPage
-            );
-            props.nextPage &&
-              props.nextPage(
-                currentPage !== pagesCount ? currentPage + 1 : currentPage,
-                e
-              );
-          }}
-        >
-          {props.nextContent || (
-            <FontAwesomeIcon icon={faAngleRight} size='xs' />
-          )}
-        </button>
-      )}
-      {/* last page */}
-      {props.hasFirstLast && currentPage !== pagesCount && pagesCount !== 0 && (
-        <button
-          {...props.lastProps}
-          className={`btn ${props.styles?.lastCustomClass || ''}`}
-          onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-            setCurrentPage(
-              currentPage !== pagesCount ? pagesCount : currentPage
-            );
-            props.lastPage &&
-              props.lastPage(
-                currentPage !== pagesCount ? pagesCount : currentPage,
-                e
-              );
-          }}
-        >
-          {props.lastContent || (
-            <FontAwesomeIcon icon={faAnglesRight} size='xs' />
-          )}
-        </button>
-      )}
+          <div>
+            {/* first page */}
+            {props.hasFirstLast && currentPage !== 1 && (
+              <button
+                {...props.firstProps}
+                className={`btn ${props.styles?.firstCustomClass || ''}`}
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                  setCurrentPage(currentPage !== 1 ? 1 : currentPage);
+                  props.firstPage &&
+                    props.firstPage(currentPage !== 1 ? 1 : currentPage, e);
+                }}
+              >
+                {props.firstContent || (
+                  <FontAwesomeIcon icon={faAnglesLeft} size='xs' />
+                )}
+              </button>
+            )}
+            {/* previous page */}
+            {props.hasNextPrevious && currentPage !== 1 && (
+              <button
+                {...props.previousProps}
+                className={`btn ${props.styles?.previousCustomClass || ''}`}
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                  setCurrentPage(
+                    currentPage !== 1 ? currentPage - 1 : currentPage
+                  );
+                  props.previousPage &&
+                    props.previousPage(
+                      currentPage !== 1 ? currentPage - 1 : currentPage,
+                      e
+                    );
+                }}
+              >
+                {props.previousContent || (
+                  <FontAwesomeIcon icon={faAngleLeft} size='xs' />
+                )}
+              </button>
+            )}
+            {/* page numbers */}
+            <React.Fragment>
+              {generateNumbers(
+                props.maxDisplayedNumbers &&
+                  props.maxDisplayedNumbers < pagesCount
+                  ? props.maxDisplayedNumbers
+                  : pagesCount,
+                currentPage
+              ).map((number: number) => {
+                return (
+                  <button
+                    key={number}
+                    title={number.toString()}
+                    {...props.numberProps}
+                    className={`btn ${number === currentPage ? 'active' : ''} ${
+                      props.styles?.numberCustomClass || ''
+                    }`}
+                    onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                      setCurrentPage(number);
+                      props.changePage && props.changePage(number, e);
+                    }}
+                  >
+                    {number}
+                  </button>
+                );
+              })}
+            </React.Fragment>
+            {/* next page */}
+            {props.hasNextPrevious &&
+              currentPage !== pagesCount &&
+              pagesCount !== 0 && (
+                <button
+                  {...props.nextProps}
+                  className={`btn ${props.styles?.nextCustomClass || ''}`}
+                  onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                    setCurrentPage(
+                      currentPage !== pagesCount ? currentPage + 1 : currentPage
+                    );
+                    props.nextPage &&
+                      props.nextPage(
+                        currentPage !== pagesCount
+                          ? currentPage + 1
+                          : currentPage,
+                        e
+                      );
+                  }}
+                >
+                  {props.nextContent || (
+                    <FontAwesomeIcon icon={faAngleRight} size='xs' />
+                  )}
+                </button>
+              )}
+            {/* last page */}
+            {props.hasFirstLast &&
+              currentPage !== pagesCount &&
+              pagesCount !== 0 && (
+                <button
+                  {...props.lastProps}
+                  className={`btn ${props.styles?.lastCustomClass || ''}`}
+                  onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                    setCurrentPage(
+                      currentPage !== pagesCount ? pagesCount : currentPage
+                    );
+                    props.lastPage &&
+                      props.lastPage(
+                        currentPage !== pagesCount ? pagesCount : currentPage,
+                        e
+                      );
+                  }}
+                >
+                  {props.lastContent || (
+                    <FontAwesomeIcon icon={faAnglesRight} size='xs' />
+                  )}
+                </button>
+              )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

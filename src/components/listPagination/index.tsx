@@ -1,24 +1,23 @@
+import { PaginationProps } from '@components/pagination';
 import React from 'react';
 import './style.scss';
 
-const GridContentLoader = React.lazy(() => import('../contentLoader/grid'));
-const RowContentLoader = React.lazy(() => import('../contentLoader/row'));
-const Pagination = React.lazy(() =>
-  import('../pagination').then((module) => ({
-    default: module.Pagination,
-  }))
+const GridContentLoader = React.lazy(
+  () => import('@components/contentLoader/grid')
+);
+const RowContentLoader = React.lazy(
+  () => import('@components/contentLoader/row')
 );
 export interface ListPaginationProps {
-  children: React.ReactElement<typeof Pagination>;
+  children?: React.ReactElement<PaginationProps>;
   items: JSX.Element[];
+  display?: 'Grid' | 'Rows';
   numberOfItemsPerRow?: 2 | 3 | 4;
-  display: 'Grid' | 'Rows';
   isLoading?: boolean;
   loader?: 'ContentLoader' | React.ReactNode;
   header?: React.ReactNode;
   footerLeftActions?: React.ReactNode;
   footerRightActions?: React.ReactNode;
-  paginationPosition?: 'start' | 'center' | 'end';
   styles?: {
     containerCustomClass?: string;
     headerCustomClass?: string;
@@ -31,7 +30,14 @@ export interface ListPaginationProps {
   };
 }
 
-export const ListPagination = (props: ListPaginationProps) => {
+export const ListPagination = (
+  props: ListPaginationProps = {
+    items: [],
+    display: 'Grid',
+    isLoading: false,
+    loader: 'ContentLoader',
+  }
+) => {
   return (
     <div
       className={`container-fluid ${props.styles?.containerCustomClass || ''}`}
@@ -89,13 +95,7 @@ export const ListPagination = (props: ListPaginationProps) => {
           </div>
         )}
         {/* pagination */}
-        <div
-          className={`col d-flex ${props.styles?.footerPaginationClass || ''} ${
-            props.paginationPosition
-              ? 'justify-content-' + props.paginationPosition
-              : ''
-          }`}
-        >
+        <div className={`col ${props.styles?.footerPaginationClass || ''} `}>
           {props.children}
         </div>
         {/* right footer */}
