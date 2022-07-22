@@ -3,7 +3,6 @@ const path = require('path');
 const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const pkg = require('./package.json');
 
 module.exports = {
@@ -23,11 +22,8 @@ module.exports = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
     modules: [path.resolve(__dirname, 'src'), 'node_modules'],
-    plugins: [
-      new TsconfigPathsPlugin({ configFile: path.resolve('tsconfig.json') }),
-    ],
     alias: {
-      components: path.resolve(__dirname, 'src/components/'),
+      '@components': path.resolve(__dirname, 'src/components/'),
     },
     fallback: {
       assert: require.resolve('assert'),
@@ -95,10 +91,13 @@ module.exports = {
         exclude: [/node_modules/],
       },
       {
-        test: /\.(tsx)?$/,
+        test: /\.(tsx|ts)?$/,
         use: [
           {
             loader: 'ts-loader',
+            options: {
+              configFile: path.resolve(__dirname, 'tsconfig.build.json'),
+            },
           },
         ],
       },

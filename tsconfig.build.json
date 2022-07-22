@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig",
+  "exclude": [
+    "node_modules",
+    "dist",
+    "coverage",
+    "docs",
+    "docs-build",
+    "./*.js",
+    "./*.ts",
+    "src/**/*.test.tsx",
+    "src/**/*.stories.tsx"
+  ]
+}
