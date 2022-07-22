@@ -34,7 +34,6 @@
     "docs-build",
     "./*.js",
     "./*.ts",
-    "src/**/*.test.tsx",
-    "src/**/*.stories.tsx"
+    "src/**/*.test.tsx"
   ]
 }

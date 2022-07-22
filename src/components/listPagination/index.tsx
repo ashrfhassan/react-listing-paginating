@@ -1,3 +1,4 @@
+import { PaginationProps } from '@components/pagination';
 import React from 'react';
 import './style.scss';
 
@@ -13,7 +14,7 @@ const Pagination = React.lazy(() =>
   }))
 );
 export interface ListPaginationProps {
-  children: React.ReactElement<typeof Pagination>;
+  children: React.ReactElement<PaginationProps>;
   items: JSX.Element[];
   numberOfItemsPerRow?: 2 | 3 | 4;
   display: 'Grid' | 'Rows';

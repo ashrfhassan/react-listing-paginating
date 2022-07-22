@@ -109,7 +109,7 @@
     "storybook": "start-storybook -p 6006 -s ./src/stories/assets",
     "build-storybook": "build-storybook -o docs-build -s ./src/stories/assets",
     "build": "webpack --mode production --config webpack.config.js && npm run build:path",
-    "build:path": "tscpaths -p tsconfig.json -s ./src -o ./dist",
+    "build:path": "tscpaths -p tsconfig.build.json -s ./src -o ./dist",
     "test": "jest --u",
     "prepare": "husky install && npm run build",
     "prepublishOnly": "npm test && npm run lint && npm run format && npm run build",
