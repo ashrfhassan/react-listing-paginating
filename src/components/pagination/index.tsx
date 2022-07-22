@@ -9,16 +9,14 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import './style.scss';
 
-export interface PaginationProps {
+interface PaginationBaseProps {
   currentPage: number;
-  totalPages?: number;
-  totalItems?: number;
   itemsPerPage: number;
-  maxDisplayedNumbers: 1 | 2 | 3 | 3 | 4 | 5 | 6 | 7 | 8;
-  hasNextPrevious: boolean;
+  maxDisplayedNumbers?: 1 | 2 | 3 | 3 | 4 | 5 | 6 | 7 | 8;
+  hasNextPrevious?: boolean;
   previousContent?: string | React.ReactNode;
   nextContent?: string | React.ReactNode;
-  hasFirstLast: boolean;
+  hasFirstLast?: boolean;
   firstContent?: string | React.ReactNode;
   lastContent?: string | React.ReactNode;
   numberProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
@@ -57,17 +55,44 @@ export interface PaginationProps {
   };
 }
 
-export const Pagination = (props: PaginationProps) => {
+interface RequireTotalItems extends PaginationBaseProps {
+  totalItems: number;
+}
+
+interface RequireTotalPages extends PaginationBaseProps {
+  totalPages: number;
+}
+
+export type PaginationProps = RequireTotalItems | RequireTotalPages;
+
+export const Pagination = (
+  props: PaginationProps = {
+    currentPage: 1,
+    totalItems: 1000,
+    totalPages: 20,
+    itemsPerPage: 20,
+    maxDisplayedNumbers: 6,
+    hasNextPrevious: false,
+    hasFirstLast: false,
+  }
+) => {
   const [pagesCount, setPagesCount] = useState(
-    props.totalPages || (props.totalItems ?? 0) / props.itemsPerPage
+    'totalPages' in props
+      ? props.totalPages
+      : undefined || props.totalItems / props.itemsPerPage
   );
   const [currentPage, setCurrentPage] = useState(props.currentPage);
 
-  useEffect(() => {
-    setPagesCount(
-      props.totalPages || (props.totalItems ?? 0) / props.itemsPerPage
-    );
-  }, [props.totalPages, props.totalItems]);
+  useEffect(
+    () => {
+      setPagesCount(
+        'totalPages' in props
+          ? props.totalPages
+          : undefined || props.totalItems / props.itemsPerPage
+      );
+    },
+    'totalPages' in props ? [props.totalPages] : [props.totalItems]
+  );
 
   const generateNumbers = (
     maxDisplayedNumbers: number,
@@ -152,7 +177,8 @@ export const Pagination = (props: PaginationProps) => {
             {/* page numbers */}
             <React.Fragment>
               {generateNumbers(
-                props.maxDisplayedNumbers < pagesCount
+                props.maxDisplayedNumbers &&
+                  props.maxDisplayedNumbers < pagesCount
                   ? props.maxDisplayedNumbers
                   : pagesCount,
                 currentPage

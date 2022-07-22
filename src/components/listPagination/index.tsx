@@ -8,16 +8,11 @@ const GridContentLoader = React.lazy(
 const RowContentLoader = React.lazy(
   () => import('@components/contentLoader/row')
 );
-const Pagination = React.lazy(() =>
-  import('@components/pagination').then((module) => ({
-    default: module.Pagination,
-  }))
-);
 export interface ListPaginationProps {
-  children: React.ReactElement<PaginationProps>;
+  children?: React.ReactElement<PaginationProps>;
   items: JSX.Element[];
+  display?: 'Grid' | 'Rows';
   numberOfItemsPerRow?: 2 | 3 | 4;
-  display: 'Grid' | 'Rows';
   isLoading?: boolean;
   loader?: 'ContentLoader' | React.ReactNode;
   header?: React.ReactNode;
@@ -35,7 +30,14 @@ export interface ListPaginationProps {
   };
 }
 
-export const ListPagination = (props: ListPaginationProps) => {
+export const ListPagination = (
+  props: ListPaginationProps = {
+    items: [],
+    display: 'Grid',
+    isLoading: false,
+    loader: 'ContentLoader',
+  }
+) => {
   return (
     <div
       className={`container-fluid ${props.styles?.containerCustomClass || ''}`}

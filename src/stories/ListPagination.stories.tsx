@@ -66,7 +66,7 @@ Primary.args = {
     rightfooterClass: 'd-flex justify-content-center',
   },
   pagination: {
-    totalPages: 100,
+    totalItems: 1000,
     currentPage: 1,
     itemsPerPage: 20,
     maxDisplayedNumbers: 6,
