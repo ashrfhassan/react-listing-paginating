@@ -61,7 +61,6 @@ const App = () => {
         styles={{
           itemCustomClass: 'd-flex justify-content-center',
         }}
-        paginationPosition={'center'}
       >
         <Pagination
           totalPages={totalPages}
@@ -84,6 +83,7 @@ const App = () => {
             title: 'Next page',
           }}
           styles={{
+            position={'center'}
             numberCustomClass: 'btn-primary',
           }}
         />
@@ -105,13 +105,12 @@ const App = () => {
 | children | `React Node` | false | should be paginating component as a child. |
 | items | `Array of React Node` | true | an array of components to be displayed. |
 | numberOfItemsPerRow | `Number` | false | number of items each row it only available in display `Grid`. |
-| display | `Grid , Rows` | true | items displaying style. |
+| display | `Grid , Rows` | false | items displaying style / default [Grid]. |
 | isLoading | `Boolean` | false | used for loading time / default [false]. |
 | loader | `React Node , 'ContentLoader'` | false | React element to use as a placeholder for items (ContentLoader for prebuilt loader). |
 | header | `React Node` | false | React element to use as a header. |
 | footerLeftActions | `React Node` | false | React element to use as a left section next to children. |
 | footerRightActions | `React Node` | false | React element to use as a right section next to children. |
-| paginationPosition | `'start' , 'center' , 'end'` | false | positioning children inside footer. |
 | styles | `Object` | false | contains classes for styling different sections. |
 
 ### Paginating Props
@@ -119,14 +118,14 @@ const App = () => {
 | Prop | Type | Required | Description |
 |:---|:---|:---|:---|
 | currentPage | `Number` | true | current page number. |
-| totalPages | `Number` | false | number of total pages. |
-| totalItems | `Number` | false | number of total items. |
+| totalPages | `Number` | true (if no totalItems) | number of total pages. |
+| totalItems | `Number` | true (if no totalPages) | number of total items. |
 | itemsPerPage | `Number` | true | number of displayed items per page. |
-| maxDisplayedNumbers | `1,2,3,4,5,6,7,8` | true | number of displayed pagination buttons to be shown. |
-| hasNextPrevious | `Boolean` | true | whether to display previous/next buttons or not. |
+| maxDisplayedNumbers | `1,2,3,4,5,6,7,8` | false | number of displayed pagination buttons to be shown. /default [6] |
+| hasNextPrevious | `Boolean` | false | whether to display previous/next buttons or not. |
 | previousContent | `React Node` | false | React element to use as a content for previous button. |
 | nextContent | `React Node` | false | React element to use as a content for next button. |
-| hasFirstLast | `Boolean` | true | whether to display first/last buttons or not. |
+| hasFirstLast | `Boolean` | false | whether to display first/last buttons or not. |
 | firstContent | `React Node` | false | React element to use as a content for first button. |
 | lastContent | `React Node` | false | React element to use as a content for last button. |
 | changePage | `Function (pageNumber, event?)` | false | function invoked after clicking on a paginating number. |
@@ -135,6 +134,7 @@ const App = () => {
 | firstPage | `Function (pageNumber, event?)` | false | function invoked after clicking on a paginating first button. |
 | lastPage | `Function (pageNumber, event?)` | false | function invoked after clicking on a paginating last button. |
 | styles | `Object` | false | contains classes for styling different sections. |
+| styles.position | `'start' , 'center' , 'end'` | false | positioning buttons horizontally. |
 
 ## 🔗 Links
 
