@@ -72,6 +72,8 @@ Primary.args = {
     maxDisplayedNumbers: 6,
     hasFirstLast: true,
     hasNextPrevious: true,
+    hasNumbersGap: true,
+    numbersGapContent: '...',
     previousContent: 'previous',
     nextContent: 'next',
     firstContent: 'first',

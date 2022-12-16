@@ -19,6 +19,8 @@ interface PaginationBaseProps {
   hasFirstLast?: boolean;
   firstContent?: string | React.ReactNode;
   lastContent?: string | React.ReactNode;
+  hasNumbersGap?: boolean;
+  numbersGapContent?: string | React.ReactNode;
   numberProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
   previousProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
   nextProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
@@ -74,6 +76,7 @@ export const Pagination = (
     maxDisplayedNumbers: 6,
     hasNextPrevious: false,
     hasFirstLast: false,
+    hasNumbersGap: false,
   }
 ) => {
   const [pagesCount, setPagesCount] = useState(
@@ -95,9 +98,12 @@ export const Pagination = (
   );
 
   const generateNumbers = (
+    pagesCount: number,
     maxDisplayedNumbers: number,
-    currentPage: number
+    currentPage: number,
+    hasGap = false
   ) => {
+    // start listing numbers from current page
     let start =
       Math.floor((currentPage - 1) / maxDisplayedNumbers) * maxDisplayedNumbers;
     const generatedNumbers = [
@@ -108,17 +114,29 @@ export const Pagination = (
         (_, i) => i + 1
       ),
     ];
+    // adding previous and next page numbers depending on current
     if (currentPage === generatedNumbers[0] + start && currentPage !== 1) {
       start--;
     }
     if (currentPage === generatedNumbers[generatedNumbers.length - 1] + start) {
       start++;
     }
-    const pagesNumbers = generatedNumbers.map((number) => {
+    let pagesNumbers = generatedNumbers.map((number) => {
       const pageNumber = start + number;
       return pageNumber <= pagesCount ? pageNumber : -1;
     });
+    // clean numbers array after mapping
     _.remove(pagesNumbers, (val) => val === -1);
+    // add numbers gap
+    if (hasGap) {
+      if (currentPage <= pagesCount - 3) {
+        pagesNumbers.push(-1);
+        pagesNumbers.push(pagesCount);
+      }
+      if (currentPage >= 7) {
+        pagesNumbers = [1, -1].concat(pagesNumbers);
+      }
+    }
     return pagesNumbers;
   };
 
@@ -177,26 +195,30 @@ export const Pagination = (
             {/* page numbers */}
             <React.Fragment>
               {generateNumbers(
+                pagesCount,
                 props.maxDisplayedNumbers &&
                   props.maxDisplayedNumbers < pagesCount
                   ? props.maxDisplayedNumbers
                   : pagesCount,
-                currentPage
-              ).map((number: number) => {
+                currentPage,
+                props.hasNumbersGap
+              ).map((number: number, index: number) => {
                 return (
                   <button
-                    key={number}
-                    title={number.toString()}
+                    key={`${number}-${index}`}
+                    title={number != -1 ? number.toString() : undefined}
                     {...props.numberProps}
                     className={`btn ${number === currentPage ? 'active' : ''} ${
                       props.styles?.numberCustomClass || ''
                     }`}
                     onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                      if (number === -1) return;
                       setCurrentPage(number);
                       props.changePage && props.changePage(number, e);
                     }}
+                    disabled={number === -1}
                   >
-                    {number}
+                    {number === -1 ? props.numbersGapContent ?? '...' : number}
                   </button>
                 );
               })}
