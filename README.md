@@ -128,6 +128,8 @@ const App = () => {
 | hasFirstLast | `Boolean` | false | whether to display first/last buttons or not. |
 | firstContent | `React Node` | false | React element to use as a content for first button. |
 | lastContent | `React Node` | false | React element to use as a content for last button. |
+| hasNumbersGap | `Boolean` | false | whether to display numbers gap (...) to shortcut to first/last page or not. |
+| numbersGapContent | `React Node` | false | React element to use as a content for gap button. |
 | changePage | `Function (pageNumber, event?)` | false | function invoked after clicking on a paginating number. |
 | previousPage | `Function (pageNumber, event?)` | false | function invoked after clicking on a paginating previous button. |
 | nextPage | `Function (pageNumber, event?)` | false | function invoked after clicking on a paginating next button. |
