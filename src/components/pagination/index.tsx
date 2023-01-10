@@ -12,48 +12,49 @@ import './style.scss';
 interface PaginationBaseProps {
   currentPage: number;
   itemsPerPage: number;
-  maxDisplayedNumbers?: 1 | 2 | 3 | 3 | 4 | 5 | 6 | 7 | 8;
+  displayedNumbersCount?: 1 | 2 | 3 | 3 | 4 | 5 | 6 | 7 | 8;
   hasNextPrevious?: boolean;
-  previousContent?: string | React.ReactNode;
-  nextContent?: string | React.ReactNode;
+  previousBtnContent?: string | React.ReactNode;
+  nextBtnContent?: string | React.ReactNode;
   hasFirstLast?: boolean;
-  firstContent?: string | React.ReactNode;
-  lastContent?: string | React.ReactNode;
+  firstBtnContent?: string | React.ReactNode;
+  lastBtnContent?: string | React.ReactNode;
   hasNumbersGap?: boolean;
-  numbersGapContent?: string | React.ReactNode;
-  numberProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
-  previousProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
-  nextProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
-  firstProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
-  lastProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
-  changePage?: (
+  numbersGapBtnContent?: string | React.ReactNode;
+  numberBtnProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
+  previousBtnProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
+  nextBtnProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
+  firstBtnProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
+  lastBtnProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
+  onChangePage?: (
     pageNumber: number,
     e?: React.MouseEvent<HTMLButtonElement>
   ) => void;
-  previousPage?: (
+  OnPreBtnClick?: (
     pageNumber: number,
     e?: React.MouseEvent<HTMLButtonElement>
   ) => void;
-  nextPage?: (
+  OnNextBtnClick?: (
     pageNumber: number,
     e?: React.MouseEvent<HTMLButtonElement>
   ) => void;
-  firstPage?: (
+  OnFirstBtnClick?: (
     pageNumber: number,
     e?: React.MouseEvent<HTMLButtonElement>
   ) => void;
-  lastPage?: (
+  OnLastBtnClick?: (
     pageNumber: number,
     e?: React.MouseEvent<HTMLButtonElement>
   ) => void;
   styles?: {
     position?: 'start' | 'center' | 'end';
-    containerCustomClass?: string;
-    numberCustomClass?: string;
-    nextCustomClass?: string;
-    previousCustomClass?: string;
-    firstCustomClass?: string;
-    lastCustomClass?: string;
+    containerClass?: string;
+    numberBtnClass?: string;
+    nextBtnClass?: string;
+    previousBtnClass?: string;
+    firstBtnClass?: string;
+    lastBtnClass?: string;
+    activeBtnClass?: string;
   };
 }
 
@@ -73,7 +74,7 @@ export const Pagination = (
     totalItems: 1000,
     totalPages: 20,
     itemsPerPage: 20,
-    maxDisplayedNumbers: 6,
+    displayedNumbersCount: 6,
     hasNextPrevious: false,
     hasFirstLast: false,
     hasNumbersGap: false,
@@ -99,17 +100,18 @@ export const Pagination = (
 
   const generateNumbers = (
     pagesCount: number,
-    maxDisplayedNumbers: number,
+    displayedNumbersCount: number,
     currentPage: number,
     hasGap = false
   ) => {
     // start listing numbers from current page
     let start =
-      Math.floor((currentPage - 1) / maxDisplayedNumbers) * maxDisplayedNumbers;
+      Math.floor((currentPage - 1) / displayedNumbersCount) *
+      displayedNumbersCount;
     const generatedNumbers = [
       ...Array.from(
         {
-          length: maxDisplayedNumbers,
+          length: displayedNumbersCount,
         },
         (_, i) => i + 1
       ),
@@ -143,136 +145,162 @@ export const Pagination = (
   return (
     <div
       className={`container-fluid btn-container ${
-        props.styles?.containerCustomClass || ''
+        props.styles?.containerClass || ''
       }`}
     >
-      <div className={'row'}>
-        <div
-          className={`col d-flex ${
-            props.styles?.position
-              ? 'justify-content-' + props.styles?.position
-              : ''
-          }`}
-        >
-          <div>
-            {/* first page */}
-            {props.hasFirstLast && currentPage !== 1 && (
-              <button
-                {...props.firstProps}
-                className={`btn ${props.styles?.firstCustomClass || ''}`}
-                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                  setCurrentPage(currentPage !== 1 ? 1 : currentPage);
-                  props.firstPage &&
-                    props.firstPage(currentPage !== 1 ? 1 : currentPage, e);
-                }}
+      <div
+        className={`row m-0 ${
+          props.styles?.position
+            ? 'justify-content-' + props.styles?.position
+            : ''
+        }`}
+      >
+        {/* first page */}
+        {props.hasFirstLast && currentPage !== 1 && (
+          <div className={'col px-0 flex-content justify-content-center'}>
+            <button
+              {...props.firstBtnProps}
+              className={`btn ${props.styles?.firstBtnClass ?? ''}`}
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                setCurrentPage(currentPage !== 1 ? 1 : currentPage);
+                props.OnFirstBtnClick &&
+                  props.OnFirstBtnClick(currentPage !== 1 ? 1 : currentPage, e);
+              }}
+            >
+              {props.firstBtnContent || (
+                <FontAwesomeIcon
+                  icon={faAnglesLeft}
+                  size='xs'
+                  className='flip'
+                />
+              )}
+            </button>
+          </div>
+        )}
+        {/* previous page */}
+        {props.hasNextPrevious && currentPage !== 1 && (
+          <div className={'col px-0 flex-content justify-content-center'}>
+            <button
+              {...props.previousBtnProps}
+              className={`btn ${props.styles?.previousBtnClass ?? ''}`}
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                setCurrentPage(
+                  currentPage !== 1 ? currentPage - 1 : currentPage
+                );
+                props.OnPreBtnClick &&
+                  props.OnPreBtnClick(
+                    currentPage !== 1 ? currentPage - 1 : currentPage,
+                    e
+                  );
+              }}
+            >
+              {props.previousBtnContent || (
+                <FontAwesomeIcon
+                  icon={faAngleLeft}
+                  size='xs'
+                  className='flip'
+                />
+              )}
+            </button>
+          </div>
+        )}
+        {/* page numbers */}
+        <React.Fragment>
+          {generateNumbers(
+            pagesCount,
+            props.displayedNumbersCount &&
+              props.displayedNumbersCount < pagesCount
+              ? props.displayedNumbersCount
+              : pagesCount,
+            currentPage,
+            props.hasNumbersGap
+          ).map((number: number, index: number) => {
+            return (
+              <div
+                key={`${number}-${index}`}
+                className={'col px-0 flex-content justify-content-center'}
               >
-                {props.firstContent || (
-                  <FontAwesomeIcon icon={faAnglesLeft} size='xs' />
-                )}
-              </button>
-            )}
-            {/* previous page */}
-            {props.hasNextPrevious && currentPage !== 1 && (
+                <button
+                  title={number != -1 ? number.toString() : undefined}
+                  {...props.numberBtnProps}
+                  className={`btn ${
+                    number === currentPage
+                      ? `active ${props.styles?.activeBtnClass ?? ''}`
+                      : ''
+                  } ${props.styles?.numberBtnClass ?? ''}`}
+                  onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                    if (number === -1) return;
+                    setCurrentPage(number);
+                    props.onChangePage && props.onChangePage(number, e);
+                  }}
+                  disabled={number === -1}
+                >
+                  {number === -1 ? props.numbersGapBtnContent ?? '...' : number}
+                </button>
+              </div>
+            );
+          })}
+        </React.Fragment>
+        {/* next page */}
+        {props.hasNextPrevious &&
+          currentPage !== pagesCount &&
+          pagesCount !== 0 && (
+            <div className={'col px-0 flex-content justify-content-center'}>
               <button
-                {...props.previousProps}
-                className={`btn ${props.styles?.previousCustomClass || ''}`}
+                {...props.nextBtnProps}
+                className={`btn ${props.styles?.nextBtnClass ?? ''}`}
                 onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                   setCurrentPage(
-                    currentPage !== 1 ? currentPage - 1 : currentPage
+                    currentPage !== pagesCount ? currentPage + 1 : currentPage
                   );
-                  props.previousPage &&
-                    props.previousPage(
-                      currentPage !== 1 ? currentPage - 1 : currentPage,
+                  props.OnNextBtnClick &&
+                    props.OnNextBtnClick(
+                      currentPage !== pagesCount
+                        ? currentPage + 1
+                        : currentPage,
                       e
                     );
                 }}
               >
-                {props.previousContent || (
-                  <FontAwesomeIcon icon={faAngleLeft} size='xs' />
+                {props.nextBtnContent || (
+                  <FontAwesomeIcon
+                    icon={faAngleRight}
+                    size='xs'
+                    className='flip'
+                  />
                 )}
               </button>
-            )}
-            {/* page numbers */}
-            <React.Fragment>
-              {generateNumbers(
-                pagesCount,
-                props.maxDisplayedNumbers &&
-                  props.maxDisplayedNumbers < pagesCount
-                  ? props.maxDisplayedNumbers
-                  : pagesCount,
-                currentPage,
-                props.hasNumbersGap
-              ).map((number: number, index: number) => {
-                return (
-                  <button
-                    key={`${number}-${index}`}
-                    title={number != -1 ? number.toString() : undefined}
-                    {...props.numberProps}
-                    className={`btn ${number === currentPage ? 'active' : ''} ${
-                      props.styles?.numberCustomClass || ''
-                    }`}
-                    onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                      if (number === -1) return;
-                      setCurrentPage(number);
-                      props.changePage && props.changePage(number, e);
-                    }}
-                    disabled={number === -1}
-                  >
-                    {number === -1 ? props.numbersGapContent ?? '...' : number}
-                  </button>
-                );
-              })}
-            </React.Fragment>
-            {/* next page */}
-            {props.hasNextPrevious &&
-              currentPage !== pagesCount &&
-              pagesCount !== 0 && (
-                <button
-                  {...props.nextProps}
-                  className={`btn ${props.styles?.nextCustomClass || ''}`}
-                  onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                    setCurrentPage(
-                      currentPage !== pagesCount ? currentPage + 1 : currentPage
+            </div>
+          )}
+        {/* last page */}
+        {props.hasFirstLast &&
+          currentPage !== pagesCount &&
+          pagesCount !== 0 && (
+            <div className={'col px-0 flex-content justify-content-center'}>
+              <button
+                {...props.lastBtnProps}
+                className={`btn ${props.styles?.lastBtnClass ?? ''}`}
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                  setCurrentPage(
+                    currentPage !== pagesCount ? pagesCount : currentPage
+                  );
+                  props.OnLastBtnClick &&
+                    props.OnLastBtnClick(
+                      currentPage !== pagesCount ? pagesCount : currentPage,
+                      e
                     );
-                    props.nextPage &&
-                      props.nextPage(
-                        currentPage !== pagesCount
-                          ? currentPage + 1
-                          : currentPage,
-                        e
-                      );
-                  }}
-                >
-                  {props.nextContent || (
-                    <FontAwesomeIcon icon={faAngleRight} size='xs' />
-                  )}
-                </button>
-              )}
-            {/* last page */}
-            {props.hasFirstLast &&
-              currentPage !== pagesCount &&
-              pagesCount !== 0 && (
-                <button
-                  {...props.lastProps}
-                  className={`btn ${props.styles?.lastCustomClass || ''}`}
-                  onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                    setCurrentPage(
-                      currentPage !== pagesCount ? pagesCount : currentPage
-                    );
-                    props.lastPage &&
-                      props.lastPage(
-                        currentPage !== pagesCount ? pagesCount : currentPage,
-                        e
-                      );
-                  }}
-                >
-                  {props.lastContent || (
-                    <FontAwesomeIcon icon={faAnglesRight} size='xs' />
-                  )}
-                </button>
-              )}
-          </div>
-        </div>
+                }}
+              >
+                {props.lastBtnContent || (
+                  <FontAwesomeIcon
+                    icon={faAnglesRight}
+                    size='xs'
+                    className='flip'
+                  />
+                )}
+              </button>
+            </div>
+          )}
       </div>
     </div>
   );
