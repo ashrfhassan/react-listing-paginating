@@ -149,7 +149,7 @@ export const Pagination = (
       }`}
     >
       <div
-        className={`row ${
+        className={`row m-0 ${
           props.styles?.position
             ? 'justify-content-' + props.styles?.position
             : ''
@@ -157,7 +157,7 @@ export const Pagination = (
       >
         {/* first page */}
         {props.hasFirstLast && currentPage !== 1 && (
-          <div className={'col'}>
+          <div className={'col px-0 flex-content justify-content-center'}>
             <button
               {...props.firstBtnProps}
               className={`btn ${props.styles?.firstBtnClass ?? ''}`}
@@ -179,7 +179,7 @@ export const Pagination = (
         )}
         {/* previous page */}
         {props.hasNextPrevious && currentPage !== 1 && (
-          <div className={'col'}>
+          <div className={'col px-0 flex-content justify-content-center'}>
             <button
               {...props.previousBtnProps}
               className={`btn ${props.styles?.previousBtnClass ?? ''}`}
@@ -216,7 +216,10 @@ export const Pagination = (
             props.hasNumbersGap
           ).map((number: number, index: number) => {
             return (
-              <div key={`${number}-${index}`} className={'col'}>
+              <div
+                key={`${number}-${index}`}
+                className={'col px-0 flex-content justify-content-center'}
+              >
                 <button
                   title={number != -1 ? number.toString() : undefined}
                   {...props.numberBtnProps}
@@ -242,7 +245,7 @@ export const Pagination = (
         {props.hasNextPrevious &&
           currentPage !== pagesCount &&
           pagesCount !== 0 && (
-            <div className={'col'}>
+            <div className={'col px-0 flex-content justify-content-center'}>
               <button
                 {...props.nextBtnProps}
                 className={`btn ${props.styles?.nextBtnClass ?? ''}`}
@@ -273,7 +276,7 @@ export const Pagination = (
         {props.hasFirstLast &&
           currentPage !== pagesCount &&
           pagesCount !== 0 && (
-            <div className={'col'}>
+            <div className={'col px-0 flex-content justify-content-center'}>
               <button
                 {...props.lastBtnProps}
                 className={`btn ${props.styles?.lastBtnClass ?? ''}`}
