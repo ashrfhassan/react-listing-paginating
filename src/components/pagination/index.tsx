@@ -21,11 +21,11 @@ interface PaginationBaseProps {
   lastBtnContent?: string | React.ReactNode;
   hasNumbersGap?: boolean;
   numbersGapBtnContent?: string | React.ReactNode;
-  numberBtnProps?: React.HTMLProps<HTMLButtonElement>;
-  previousBtnProps?: React.HTMLProps<HTMLButtonElement>;
-  nextBtnProps?: React.HTMLProps<HTMLButtonElement>;
-  firstBtnProps?: React.HTMLProps<HTMLButtonElement>;
-  lastBtnProps?: React.HTMLProps<HTMLButtonElement>;
+  numberBtnProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
+  previousBtnProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
+  nextBtnProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
+  firstBtnProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
+  lastBtnProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
   onChangePage?: (
     pageNumber: number,
     e?: React.MouseEvent<HTMLButtonElement>
