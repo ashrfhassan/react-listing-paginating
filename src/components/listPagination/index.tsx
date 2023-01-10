@@ -10,7 +10,7 @@ const RowContentLoader = React.lazy(
 );
 export interface ListPaginationProps {
   children?: React.ReactElement<PaginationProps>;
-  items: JSX.Element[];
+  items: React.ReactNode[];
   display?: 'Grid' | 'Rows';
   numberOfItemsPerRow?: 2 | 3 | 4;
   isLoading?: boolean;
