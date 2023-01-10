@@ -73,6 +73,7 @@ module.exports = {
       type: 'umd',
       name: 'lib',
     },
+    globalObject: 'this',
   },
   module: {
     rules: [
