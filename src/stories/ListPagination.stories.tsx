@@ -56,68 +56,27 @@ Primary.args = {
   footerLeftActions: <div>this is left footer.</div>,
   footerRightActions: <div>this is right footer.</div>,
   styles: {
-    containerCustomClass: '',
-    headerCustomClass: 'text-center',
-    dataCustomClass: '',
-    itemCustomClass: 'd-flex justify-content-center',
-    footerCustomClass: '',
-    footerPaginationClass: 'col-6',
-    leftfooterClass: 'd-flex justify-content-center',
-    rightfooterClass: 'd-flex justify-content-center',
+    containerClass: '',
+    headerClass: 'text-center',
+    itemClass: 'd-flex justify-content-center',
+    footerClass: '',
   },
   pagination: {
     totalItems: 1000,
     currentPage: 1,
     itemsPerPage: 20,
-    maxDisplayedNumbers: 6,
+    displayedNumbersCount: 6,
     hasFirstLast: true,
     hasNextPrevious: true,
     hasNumbersGap: true,
-    numbersGapContent: '...',
-    previousContent: 'previous',
-    nextContent: 'next',
-    firstContent: 'first',
-    lastContent: 'last',
-    changePage: async (pageNumber: number) => {
-      // api call using pageNumber
-    },
-    firstPage: async (pageNumber: number) => {
-      // api call using pageNumber
-    },
-    lastPage: async (pageNumber: number) => {
-      // api call using pageNumber
-    },
-    previousPage: async (pageNumber: number) => {
-      // api call using pageNumber
-    },
-    nextPage: async (pageNumber: number) => {
-      // api call using pageNumber
-    },
-    firstProps: {
-      title: 'First page',
-    },
-    lastProps: {
-      title: 'Last page',
-    },
-    previousProps: {
-      title: 'Previous page',
-    },
-    nextProps: {
-      title: 'Next page',
-    },
-    numberProps: {
-      onMouseLeave: () => {
-        console.log('Mouse left');
-      },
-    },
+    numbersGapBtnContent: 'GAP',
+    previousBtnContent: 'previous',
+    nextBtnContent: 'next',
+    firstBtnContent: 'first',
+    lastBtnContent: 'last',
     styles: {
       position: 'center',
-      numberCustomClass: 'btn-primary',
-      firstCustomClass: 'btn-primary',
-      lastCustomClass: 'btn-primary',
-      previousCustomClass: 'btn-primary',
-      nextCustomClass: 'btn-primary',
-      containerCustomClass: 'bg-white',
+      numberBtnClass: 'btn-primary',
     },
   },
 };
@@ -178,11 +137,11 @@ const AsyncTemplate: ComponentStory<any> = (
       <Pagination
         {...pagination}
         totalPages={totalPages}
-        changePage={changePage}
-        firstPage={firstPage}
-        lastPage={lastPage}
-        previousPage={previousPage}
-        nextPage={nextPage}
+        onChangePage={changePage}
+        OnFirstBtnClick={firstPage}
+        OnLastBtnClick={lastPage}
+        OnPreBtnClick={previousPage}
+        OnNextBtnClick={nextPage}
       />
     </ListPagination>
   );
@@ -195,34 +154,17 @@ Asynchronous.args = {
   isLoading: false,
   loader: 'ContentLoader',
   styles: {
-    itemCustomClass: 'd-flex justify-content-center',
+    itemClass: 'd-flex justify-content-center',
   },
   pagination: {
     currentPage: 1,
     itemsPerPage: 20,
-    maxDisplayedNumbers: 6,
+    displayedNumbersCount: 6,
     hasFirstLast: true,
     hasNextPrevious: true,
-    firstProps: {
-      title: 'First page',
-    },
-    lastProps: {
-      title: 'Last page',
-    },
-    previousProps: {
-      title: 'Previous page',
-    },
-    nextProps: {
-      title: 'Next page',
-    },
     styles: {
       position: 'right',
-      numberCustomClass: 'btn-primary',
-      firstCustomClass: 'btn-primary',
-      lastCustomClass: 'btn-primary',
-      previousCustomClass: 'btn-primary',
-      nextCustomClass: 'btn-primary',
-      containerCustomClass: 'bg-white',
+      numberBtnClass: 'btn-primary',
     },
   },
 };
