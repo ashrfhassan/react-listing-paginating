@@ -1,3 +1,14 @@
+## 1.7.0 (Jan 10, 2023)
+
+### props Update
+
+- updated most of props names to be more convenient.
+- enhanced styles props and updated it's docs.
+
+### new features
+
+- auto RTL support with bootstrap.
+
 ## 1.5.0 (Jul 15, 2022)
 
 ### Update props & bundling

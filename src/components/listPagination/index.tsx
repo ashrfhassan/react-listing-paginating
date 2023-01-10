@@ -19,14 +19,10 @@ export interface ListPaginationProps {
   footerLeftActions?: React.ReactNode;
   footerRightActions?: React.ReactNode;
   styles?: {
-    containerCustomClass?: string;
-    headerCustomClass?: string;
-    dataCustomClass?: string;
-    itemCustomClass?: string;
-    footerCustomClass?: string;
-    footerPaginationClass?: string;
-    leftfooterClass?: string;
-    rightfooterClass?: string;
+    containerClass?: string;
+    headerClass?: string;
+    itemClass?: string;
+    footerClass?: string;
   };
 }
 
@@ -39,12 +35,10 @@ export const ListPagination = (
   }
 ) => {
   return (
-    <div
-      className={`container-fluid ${props.styles?.containerCustomClass || ''}`}
-    >
+    <div className={`container-fluid ${props.styles?.containerClass ?? ''}`}>
       {/* Header */}
       {props.header && (
-        <div className={`row ${props.styles?.headerCustomClass || ''}`}>
+        <div className={`row ${props.styles?.headerClass ?? ''}`}>
           <div className={'col'}>{props.header}</div>
         </div>
       )}
@@ -53,7 +47,7 @@ export const ListPagination = (
       ) : (
         <React.Fragment>
           {/* Data */}
-          <div className={`row ${props.styles?.dataCustomClass || ''}`}>
+          <div className={'row'}>
             {props.isLoading &&
             props.loader &&
             props.loader === 'ContentLoader' ? (
@@ -74,7 +68,7 @@ export const ListPagination = (
                           ? 'col-' + 12 / props.numberOfItemsPerRow
                           : ''
                       } ${props.display === 'Rows' ? 'col-12' : ''}
-              ${props.styles?.itemCustomClass || ''}`}
+              ${props.styles?.itemClass ?? ''}`}
                       key={index}
                     >
                       <React.Fragment>{val}</React.Fragment>
@@ -87,22 +81,16 @@ export const ListPagination = (
         </React.Fragment>
       )}
       {/* Footer */}
-      <div className={`row ${props.styles?.footerCustomClass || ''}`}>
+      <div className={`row ${props.styles?.footerClass ?? ''}`}>
         {/* left footer */}
         {props.footerLeftActions && (
-          <div className={`col ${props.styles?.leftfooterClass || ''}`}>
-            {props.footerLeftActions}
-          </div>
+          <div className={'col'}>{props.footerLeftActions}</div>
         )}
         {/* pagination */}
-        <div className={`col ${props.styles?.footerPaginationClass || ''} `}>
-          {props.children}
-        </div>
+        <div className={'col'}>{props.children}</div>
         {/* right footer */}
         {props.footerRightActions && (
-          <div className={`col ${props.styles?.rightfooterClass || ''}`}>
-            {props.footerLeftActions}
-          </div>
+          <div className={'col'}>{props.footerLeftActions}</div>
         )}
       </div>
     </div>
