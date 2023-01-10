@@ -40,16 +40,16 @@ yarn add listing-pagination
 
 ## 🔨 Usage
 
+### using items displayer which works with flexbox (rows, cols) along with paginator
+
 ```jsx
 import { useState } from 'react';
 import { ListPagination, Pagination } from 'listing-pagination';
 
-const App = () => {
-  const [totalPages, setTotalPages] = useState(0);
+const CustomComponent = () => {
+  const [totalPages, setTotalPages] = useState(1000);
   const [items, setItems] = useState<any>([]);
-  const changePage = async (pageNumber: number) => {
-    // api call using pageNumber
-  };
+
   return (
     <>
       <ListPagination
@@ -59,35 +59,77 @@ const App = () => {
         isLoading={false}
         loader={'ContentLoader'}
         styles={{
-          itemCustomClass: 'd-flex justify-content-center',
+          itemClass: 'd-flex justify-content-center',
         }}
       >
         <Pagination
           totalPages={totalPages}
-          changePage={changePage}
+          onChangePage={(pageNumber: number, event: any) => { console.log('current page is ' + pageNumber)}}
           currentPage={1}
           itemsPerPage={20}
-          maxDisplayedNumbers={6}
+          displayedNumbersCount={6}
           hasFirstLast={true}
           hasNextPrevious={true}
-          firstProps={{
+          firstBtnProps={{
             title: 'First page',
           }}
-          lastProps={{
+          lastBtnProps={{
             title: 'Last page',
           }}
-          previousProps={{
+          previousBtnProps={{
             title: 'Previous page',
           }}
-          nextProps={{
+          nextBtnProps={{
             title: 'Next page',
           }}
           styles={{
-            position={'center'}
-            numberCustomClass: 'btn-primary',
+            position:'center',
+            numberBtnClass: 'btn-primary',
           }}
         />
       </ListPagination>
+    </>
+  );
+};
+
+```
+
+### or you can only use the paggination logic
+
+```jsx
+import { useState } from 'react';
+import { ListPagination, Pagination } from 'listing-pagination';
+
+const CustomComponent = () => {
+  const [totalPages, setTotalPages] = useState(1000);
+
+  return (
+    <>
+        <Pagination
+          totalPages={totalPages}
+          onChangePage={(pageNumber: number, event: any) => { console.log('current page is ' + pageNumber)}}
+          currentPage={1}
+          itemsPerPage={20}
+          displayedNumbersCount={6}
+          hasFirstLast={true}
+          hasNextPrevious={true}
+          firstBtnProps={{
+            title: 'First page',
+          }}
+          lastBtnProps={{
+            title: 'Last page',
+          }}
+          previousBtnProps={{
+            title: 'Previous page',
+          }}
+          nextBtnProps={{
+            title: 'Next page',
+          }}
+          styles={{
+            position:'center',
+            numberBtnClass: 'btn-primary',
+          }}
+        />
     </>
   );
 };
@@ -107,11 +149,20 @@ const App = () => {
 | numberOfItemsPerRow | `Number` | false | number of items each row it only available in display `Grid`. |
 | display | `Grid , Rows` | false | items displaying style / default [Grid]. |
 | isLoading | `Boolean` | false | used for loading time / default [false]. |
-| loader | `React Node , 'ContentLoader'` | false | React element to use as a placeholder for items (ContentLoader for prebuilt loader). |
-| header | `React Node` | false | React element to use as a header. |
-| footerLeftActions | `React Node` | false | React element to use as a left section next to children. |
-| footerRightActions | `React Node` | false | React element to use as a right section next to children. |
-| styles | `Object` | false | contains classes for styling different sections. |
+| loader | `React Node , 'ContentLoader'` | false | placeholder for items (ContentLoader for prebuilt loader). |
+| header | `React Node` | false | header. |
+| footerLeftActions | `React Node` | false | left section next to children. |
+| footerRightActions | `React Node` | false | right section next to children. |
+| styles | `Object` | undefined | contains classes for styling different sections. |
+
+### listing Styles Object
+
+| Prop | Type | Required | Description |
+|:---|:---|:---|:---|
+| containerClass | `'start' , 'center' , 'end'` | false | positioning buttons horizontally. |
+| headerClass | `string` | false | buttons wrapper css class. |
+| itemClass | `string` | false | next button css class. |
+| footerClass | `string` | false | previous button css class. |
 
 ### Paginating Props
 
@@ -121,22 +172,39 @@ const App = () => {
 | totalPages | `Number` | true (if no totalItems) | number of total pages. |
 | totalItems | `Number` | true (if no totalPages) | number of total items. |
 | itemsPerPage | `Number` | true | number of displayed items per page. |
-| maxDisplayedNumbers | `1,2,3,4,5,6,7,8` | false | number of displayed pagination buttons to be shown. /default [6] |
+| displayedNumbersCount | `1,2,3,4,5,6,7,8` | false | number of displayed pagination buttons to be shown. /default [6] |
 | hasNextPrevious | `Boolean` | false | whether to display previous/next buttons or not. |
-| previousContent | `React Node` | false | React element to use as a content for previous button. |
-| nextContent | `React Node` | false | React element to use as a content for next button. |
+| previousBtnContent | `string | React Node` | false | content for previous button. |
+| nextBtnContent | `string | React Node` | false | content for next button. |
 | hasFirstLast | `Boolean` | false | whether to display first/last buttons or not. |
-| firstContent | `React Node` | false | React element to use as a content for first button. |
-| lastContent | `React Node` | false | React element to use as a content for last button. |
+| firstBtnContent | `string | React Node` | false | content for first button. |
+| lastBtnContent | `string | React Node` | false | content for last button. |
 | hasNumbersGap | `Boolean` | false | whether to display numbers gap (...) to shortcut to first/last page or not. |
-| numbersGapContent | `React Node` | false | React element to use as a content for gap button. |
-| changePage | `Function (pageNumber, event?)` | false | function invoked after clicking on a paginating number. |
-| previousPage | `Function (pageNumber, event?)` | false | function invoked after clicking on a paginating previous button. |
-| nextPage | `Function (pageNumber, event?)` | false | function invoked after clicking on a paginating next button. |
-| firstPage | `Function (pageNumber, event?)` | false | function invoked after clicking on a paginating first button. |
-| lastPage | `Function (pageNumber, event?)` | false | function invoked after clicking on a paginating last button. |
-| styles | `Object` | false | contains classes for styling different sections. |
-| styles.position | `'start' , 'center' , 'end'` | false | positioning buttons horizontally. |
+| numbersGapBtnContent | `string | React Node` | false | content for gap button. |
+| numberBtnProps | `HTML Button native props` | defaults | native props of page number button. |
+| previousBtnProps | `HTML Button native props` | defaults | native props of previous page button. |
+| nextBtnProps | `HTML Button native props` | defaults | native props of next page button. |
+| firstBtnProps | `HTML Button native props` | defaults | native props of first page button. |
+| lastBtnProps | `HTML Button native props` | defaults | native props of last page button. |
+| onChangePage | `(pageNumber, event?) => void` | false | invoked after clicking on a paginating number. |
+| OnPreBtnClick | `(pageNumber, event?) => void` | false | invoked after clicking on a paginating previous button. |
+| OnNextBtnClick | `(pageNumber, event?) => void` | false | invoked after clicking on a paginating next button. |
+| OnFirstBtnClick | `(pageNumber, event?) => void` | false | invoked after clicking on a paginating first button. |
+| OnLastBtnClick | `(pageNumber, event?) => void` | false | invoked after clicking on a paginating last button. |
+| styles | `Object` | undefined | contains classes for styling different sections. |
+
+### Paginating Styles Object
+
+| Prop | Type | Required | Description |
+|:---|:---|:---|:---|
+| position | `'start' , 'center' , 'end'` | false | positioning buttons horizontally. |
+| containerClass | `string` | false | buttons wrapper css class. |
+| numberBtnClass | `string` | false | page number button css class. |
+| nextBtnClass | `string` | false | next button css class. |
+| previousBtnClass | `string` | false | previous button css class. |
+| firstBtnClass | `string` | false | first button css class. |
+| lastBtnClass | `string` | false | last button css class. |
+| activeBtnClass | `string` | false | active button css class. |
 
 ## 🔗 Links
 
