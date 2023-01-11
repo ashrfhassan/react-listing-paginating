@@ -73,6 +73,7 @@ module.exports = {
       type: 'umd',
       name: 'lib',
     },
+    globalObject: 'this',
   },
   module: {
     rules: [
@@ -100,11 +101,13 @@ module.exports = {
             },
           },
         ],
+        exclude: [/node_modules/],
       },
       {
         test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        use: ['css-loader', 'sass-loader'],
         include: path.resolve(__dirname, 'src'),
+        exclude: [/node_modules/],
       },
     ],
   },

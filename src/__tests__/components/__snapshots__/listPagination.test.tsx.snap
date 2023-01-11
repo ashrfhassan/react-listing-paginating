@@ -2,7 +2,7 @@
 
 exports[`renders component 1`] = `
 <svg
-  aria-labelledby="n7stspi-aria"
+  aria-labelledby="ev7qs2j-aria"
   height="100%"
   id={null}
   role="img"
@@ -11,17 +11,17 @@ exports[`renders component 1`] = `
   width="100%"
 >
   <title
-    id="n7stspi-aria"
+    id="ev7qs2j-aria"
   >
     Loading...
   </title>
   <rect
-    clipPath="url(#n7stspi-diff)"
+    clipPath="url(#ev7qs2j-diff)"
     height="100%"
     role="presentation"
     style={
       Object {
-        "fill": "url(#n7stspi-animated-diff)",
+        "fill": "url(#ev7qs2j-animated-diff)",
       }
     }
     width="100%"
@@ -30,7 +30,7 @@ exports[`renders component 1`] = `
   />
   <defs>
     <clipPath
-      id="n7stspi-diff"
+      id="ev7qs2j-diff"
     >
       <rect
         height="200"
@@ -466,7 +466,7 @@ exports[`renders component 1`] = `
       />
     </clipPath>
     <linearGradient
-      id="n7stspi-animated-diff"
+      id="ev7qs2j-animated-diff"
     >
       <stop
         offset="0%"
