@@ -2,7 +2,7 @@
 
 exports[`renders component 1`] = `
 <svg
-  aria-labelledby="hy792n-aria"
+  aria-labelledby="ev7qs2j-aria"
   height="100%"
   id={null}
   role="img"
@@ -11,17 +11,17 @@ exports[`renders component 1`] = `
   width="100%"
 >
   <title
-    id="hy792n-aria"
+    id="ev7qs2j-aria"
   >
     Loading...
   </title>
   <rect
-    clipPath="url(#hy792n-diff)"
+    clipPath="url(#ev7qs2j-diff)"
     height="100%"
     role="presentation"
     style={
       Object {
-        "fill": "url(#hy792n-animated-diff)",
+        "fill": "url(#ev7qs2j-animated-diff)",
       }
     }
     width="100%"
@@ -30,7 +30,7 @@ exports[`renders component 1`] = `
   />
   <defs>
     <clipPath
-      id="hy792n-diff"
+      id="ev7qs2j-diff"
     >
       <rect
         height="200"
@@ -466,7 +466,7 @@ exports[`renders component 1`] = `
       />
     </clipPath>
     <linearGradient
-      id="hy792n-animated-diff"
+      id="ev7qs2j-animated-diff"
     >
       <stop
         offset="0%"
