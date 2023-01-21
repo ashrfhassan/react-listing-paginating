@@ -25,15 +25,12 @@
       "@components/*": ["components/*"]
     }
   },
-  "include": ["src/**/*", "**/*.js", "**/*.ts", "**/*.tsx"],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "coverage",
-    "docs",
-    "docs-build",
-    "./*.js",
-    "./*.ts",
-    "src/**/*.test.tsx"
-  ]
+  "include": [
+    "src/**/*",
+    "**/*.js",
+    "**/*.ts",
+    "**/*.tsx",
+    "./declaration.d.ts"
+  ],
+  "exclude": ["node_modules", "dist", "coverage", "docs", "docs-build"]
 }
