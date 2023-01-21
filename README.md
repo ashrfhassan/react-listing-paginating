@@ -19,6 +19,7 @@
 - 🛡 Written in TypeScript with predictable static types.
 - ⚙️ loader and content loading.
 - 🎨 simple and easy styles that can be overwritten.
+- ♊  RTL support.
 
 ## 🖥 Environment Support
 
@@ -134,6 +135,19 @@ const CustomComponent = () => {
   );
 };
 
+```
+
+### RTL suport
+
+simply by adding `dir` prop to html tag the package with switch to rtl.
+
+```jsx
+<html dir="rtl">
+<Pagination/>
+</html>
+<html dir="ltr">
+<Pagination/>
+</html>
 ```
 
 ### TypeScript
