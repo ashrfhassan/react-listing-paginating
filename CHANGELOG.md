@@ -1,3 +1,9 @@
+## 1.7.6 (Jan 10, 2023)
+
+### unit tests Update
+
+- updated unit test with jest preview and react testing library.
+
 ## 1.7.0 (Jan 10, 2023)
 
 ### props Update
