@@ -83,7 +83,7 @@ export const Pagination = (
   const [pagesCount, setPagesCount] = useState(
     'totalPages' in props
       ? props.totalPages
-      : undefined || props.totalItems / props.itemsPerPage
+      : undefined || Math.ceil(props.totalItems / props.itemsPerPage)
   );
   const [currentPage, setCurrentPage] = useState(props.currentPage);
 
@@ -92,7 +92,7 @@ export const Pagination = (
       setPagesCount(
         'totalPages' in props
           ? props.totalPages
-          : undefined || props.totalItems / props.itemsPerPage
+          : undefined || Math.ceil(props.totalItems / props.itemsPerPage)
       );
     },
     'totalPages' in props ? [props.totalPages] : [props.totalItems]
@@ -131,7 +131,9 @@ export const Pagination = (
     _.remove(pagesNumbers, (val) => val === -1);
     // add numbers gap
     if (hasGap) {
-      if (currentPage <= pagesCount - 3) {
+      if (currentPage <= pagesCount - 7) {
+        if (pagesNumbers[pagesNumbers.length - 1] === pagesCount)
+          pagesNumbers.pop();
         pagesNumbers.push(-1);
         pagesNumbers.push(pagesCount);
       }
@@ -156,7 +158,7 @@ export const Pagination = (
         }`}
       >
         {/* first page */}
-        {props.hasFirstLast && currentPage !== 1 && (
+        {props.hasFirstLast && pagesCount > 0 && currentPage !== 1 && (
           <div className={'col px-0 flex-content justify-content-center'}>
             <button
               {...props.firstBtnProps}
@@ -178,7 +180,7 @@ export const Pagination = (
           </div>
         )}
         {/* previous page */}
-        {props.hasNextPrevious && currentPage !== 1 && (
+        {props.hasNextPrevious && pagesCount > 0 && currentPage !== 1 && (
           <div className={'col px-0 flex-content justify-content-center'}>
             <button
               {...props.previousBtnProps}
@@ -224,7 +226,7 @@ export const Pagination = (
                   title={number != -1 ? number.toString() : undefined}
                   {...props.numberBtnProps}
                   className={`btn ${
-                    number === currentPage
+                    number === parseInt(currentPage.toString())
                       ? `active ${props.styles?.activeBtnClass ?? ''}`
                       : ''
                   } ${props.styles?.numberBtnClass ?? ''}`}
@@ -244,7 +246,7 @@ export const Pagination = (
         {/* next page */}
         {props.hasNextPrevious &&
           currentPage !== pagesCount &&
-          pagesCount !== 0 && (
+          pagesCount > 0 && (
             <div className={'col px-0 flex-content justify-content-center'}>
               <button
                 {...props.nextBtnProps}
@@ -273,34 +275,32 @@ export const Pagination = (
             </div>
           )}
         {/* last page */}
-        {props.hasFirstLast &&
-          currentPage !== pagesCount &&
-          pagesCount !== 0 && (
-            <div className={'col px-0 flex-content justify-content-center'}>
-              <button
-                {...props.lastBtnProps}
-                className={`btn ${props.styles?.lastBtnClass ?? ''}`}
-                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                  setCurrentPage(
-                    currentPage !== pagesCount ? pagesCount : currentPage
+        {props.hasFirstLast && currentPage !== pagesCount && pagesCount > 0 && (
+          <div className={'col px-0 flex-content justify-content-center'}>
+            <button
+              {...props.lastBtnProps}
+              className={`btn ${props.styles?.lastBtnClass ?? ''}`}
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                setCurrentPage(
+                  currentPage !== pagesCount ? pagesCount : currentPage
+                );
+                props.OnLastBtnClick &&
+                  props.OnLastBtnClick(
+                    currentPage !== pagesCount ? pagesCount : currentPage,
+                    e
                   );
-                  props.OnLastBtnClick &&
-                    props.OnLastBtnClick(
-                      currentPage !== pagesCount ? pagesCount : currentPage,
-                      e
-                    );
-                }}
-              >
-                {props.lastBtnContent || (
-                  <FontAwesomeIcon
-                    icon={faAnglesRight}
-                    size='xs'
-                    className='flip'
-                  />
-                )}
-              </button>
-            </div>
-          )}
+              }}
+            >
+              {props.lastBtnContent || (
+                <FontAwesomeIcon
+                  icon={faAnglesRight}
+                  size='xs'
+                  className='flip'
+                />
+              )}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -62,8 +62,8 @@ Primary.args = {
     footerClass: '',
   },
   pagination: {
-    totalItems: 1000,
-    currentPage: 1,
+    totalItems: 202,
+    currentPage: '1',
     itemsPerPage: 20,
     displayedNumbersCount: 6,
     hasFirstLast: true,
