@@ -3,9 +3,9 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import {
   ListPagination,
   ListPaginationProps,
-} from '@components/listPagination';
+} from '../components/listPagination';
 import { useState, useEffect } from 'react';
-import { Pagination, PaginationProps } from '@components/pagination';
+import { Pagination, PaginationProps } from '../components/pagination';
 
 export default {
   title: 'List Pagination',

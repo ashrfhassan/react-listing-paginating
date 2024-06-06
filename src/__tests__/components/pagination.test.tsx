@@ -7,7 +7,7 @@ import {
   fireEvent,
   act,
 } from '../../jestSetup/render';
-import { Pagination } from '@components/pagination';
+import { Pagination } from '../../components/pagination';
 
 describe('testing login form behaviour for arabic', () => {
   beforeAll(() => {

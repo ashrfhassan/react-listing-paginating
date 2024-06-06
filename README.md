@@ -1,17 +1,17 @@
 # React Listing and Paginating
 
-[![NPM](https://nodei.co/npm/listing-pagination.svg?downloads=true&downloadRank=true)](https://www.npmjs.com/package/listing-pagination/)&nbsp;&nbsp;
+[![NPM](https://nodei.co/npm/react-listing-pagination.svg?downloads=true&downloadRank=true)](https://www.npmjs.com/package/react-listing-pagination/)&nbsp;&nbsp;
 
 [![NPM version][npm-image]][npm-url] [![NPM downloads][download-image]][download-url] [![Issues need help][help-wanted-image]][help-wanted-url]
 
-[npm-image]: https://img.shields.io/npm/v/listing-pagination.svg?style=flat-square
-[npm-url]: https://www.npmjs.com/package/listing-pagination
-[download-image]: https://img.shields.io/npm/dm/listing-pagination.svg?style=flat-square
-[download-url]: https://www.npmjs.com/package/listing-pagination
+[npm-image]: https://img.shields.io/npm/v/react-listing-pagination.svg?style=flat-square
+[npm-url]: https://www.npmjs.com/package/react-listing-pagination
+[download-image]: https://img.shields.io/npm/dm/react-listing-pagination.svg?style=flat-square
+[download-url]: https://www.npmjs.com/package/react-listing-pagination
 [help-wanted-image]: https://img.shields.io/badge/using-issues--helper-orange?style=flat-square
-[help-wanted-url]: https://github.com/ashrfhassan/listing-paginating/issues
+[help-wanted-url]: https://github.com/ashrfhassan/react-listing-paginating/issues
 
-## [Live demo](https://ashrfhassan.github.io/listing-paginating)
+## [Live demo](https://ashrfhassan.github.io/react-listing-paginating)
 
 ## ✨ Features
 
@@ -32,11 +32,11 @@
 ## 📦 Install
 
 ```bash
-npm install --save listing-pagination
+npm install --save react-listing-pagination
 ```
 
 ```bash
-yarn add listing-pagination
+yarn add react-listing-pagination
 ```
 
 ## 🔨 Usage

@@ -1,12 +1,12 @@
-import { PaginationProps } from '@components/pagination';
+import { PaginationProps } from '../../components/pagination';
 import React from 'react';
 import './style.scss';
 
 const GridContentLoader = React.lazy(
-  () => import('@components/contentLoader/grid')
+  () => import('../../components/contentLoader/grid')
 );
 const RowContentLoader = React.lazy(
-  () => import('@components/contentLoader/row')
+  () => import('../../components/contentLoader/row')
 );
 export interface ListPaginationProps {
   children?: React.ReactElement<PaginationProps>;

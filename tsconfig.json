@@ -1,11 +1,13 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "target": "es6",
+    "lib": ["dom", "dom.iterable", "ES2016", "esnext"],
     "declaration": true,
     "declarationMap": true,
     "declarationDir": "dist",
     "outDir": "dist",
+    "importHelpers": true,
+    "noEmitHelpers": true,
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -20,7 +22,7 @@
     "noImplicitAny": false,
     "jsx": "react-jsx",
     "sourceMap": true,
-    "baseUrl": "./src",
+    "baseUrl": "./src/",
     "paths": {
       "@components/*": ["components/*"]
     }
@@ -30,7 +32,8 @@
     "**/*.js",
     "**/*.ts",
     "**/*.tsx",
-    "./declaration.d.ts"
+    "./declaration.d.ts",
+    "./index.ts"
   ],
   "exclude": ["node_modules", "dist", "coverage", "docs", "docs-build"]
 }
