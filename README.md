@@ -45,7 +45,7 @@ yarn add react-listing-pagination
 
 ```jsx
 import { useState } from 'react';
-import { ListPagination, Pagination } from 'listing-pagination';
+import { ListPagination, Pagination } from 'react-listing-pagination';
 
 const CustomComponent = () => {
   const [totalPages, setTotalPages] = useState(1000);
@@ -99,7 +99,7 @@ const CustomComponent = () => {
 
 ```jsx
 import { useState } from 'react';
-import { ListPagination, Pagination } from 'listing-pagination';
+import { ListPagination, Pagination } from 'react-listing-pagination';
 
 const CustomComponent = () => {
   const [totalPages, setTotalPages] = useState(1000);
