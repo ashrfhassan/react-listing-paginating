@@ -1,7 +1,6 @@
 import React, { ReactElement, FC } from 'react';
 import { render, RenderOptions } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import '@testing-library/jest-dom/extend-expect';
 
 const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
   return <div>{children}</div>;
