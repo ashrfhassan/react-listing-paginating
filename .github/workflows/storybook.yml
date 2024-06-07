@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: production
-      url: https://github.com/ashrfhassan/listing-paginating/pulls
+      url: https://github.com/ashrfhassan/react-listing-paginating/pulls
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v2.3.1

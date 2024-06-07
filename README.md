@@ -1,17 +1,17 @@
 # React Listing and Paginating
 
-[![NPM](https://nodei.co/npm/listing-pagination.svg?downloads=true&downloadRank=true)](https://www.npmjs.com/package/listing-pagination/)&nbsp;&nbsp;
+[![NPM](https://nodei.co/npm/react-listing-pagination.svg?downloads=true&downloadRank=true)](https://www.npmjs.com/package/react-listing-pagination/)&nbsp;&nbsp;
 
 [![NPM version][npm-image]][npm-url] [![NPM downloads][download-image]][download-url] [![Issues need help][help-wanted-image]][help-wanted-url]
 
-[npm-image]: https://img.shields.io/npm/v/listing-pagination.svg?style=flat-square
-[npm-url]: https://www.npmjs.com/package/listing-pagination
-[download-image]: https://img.shields.io/npm/dm/listing-pagination.svg?style=flat-square
-[download-url]: https://www.npmjs.com/package/listing-pagination
+[npm-image]: https://img.shields.io/npm/v/react-listing-pagination.svg?style=flat-square
+[npm-url]: https://www.npmjs.com/package/react-listing-pagination
+[download-image]: https://img.shields.io/npm/dm/react-listing-pagination.svg?style=flat-square
+[download-url]: https://www.npmjs.com/package/react-listing-pagination
 [help-wanted-image]: https://img.shields.io/badge/using-issues--helper-orange?style=flat-square
-[help-wanted-url]: https://github.com/ashrfhassan/listing-paginating/issues
+[help-wanted-url]: https://github.com/ashrfhassan/react-listing-paginating/issues
 
-## [Live demo](https://ashrfhassan.github.io/listing-paginating)
+## [Live demo](https://ashrfhassan.github.io/react-listing-paginating)
 
 ## ✨ Features
 
@@ -32,11 +32,11 @@
 ## 📦 Install
 
 ```bash
-npm install --save listing-pagination
+npm install --save react-listing-pagination
 ```
 
 ```bash
-yarn add listing-pagination
+yarn add react-listing-pagination
 ```
 
 ## 🔨 Usage
@@ -45,7 +45,7 @@ yarn add listing-pagination
 
 ```jsx
 import { useState } from 'react';
-import { ListPagination, Pagination } from 'listing-pagination';
+import { Listing, Pagination } from 'react-listing-pagination';
 
 const CustomComponent = () => {
   const [totalPages, setTotalPages] = useState(1000);
@@ -53,7 +53,7 @@ const CustomComponent = () => {
 
   return (
     <>
-      <ListPagination
+      <Listing
         items={items}
         display={'Grid'}
         numberOfItemsPerRow={2}
@@ -69,8 +69,6 @@ const CustomComponent = () => {
           currentPage={1}
           itemsPerPage={20}
           displayedNumbersCount={6}
-          hasFirstLast={true}
-          hasNextPrevious={true}
           firstBtnProps={{
             title: 'First page',
           }}
@@ -88,7 +86,7 @@ const CustomComponent = () => {
             numberBtnClass: 'btn-primary',
           }}
         />
-      </ListPagination>
+      </Listing>
     </>
   );
 };
@@ -99,7 +97,7 @@ const CustomComponent = () => {
 
 ```jsx
 import { useState } from 'react';
-import { ListPagination, Pagination } from 'listing-pagination';
+import { Listing, Pagination } from 'react-listing-pagination';
 
 const CustomComponent = () => {
   const [totalPages, setTotalPages] = useState(1000);
@@ -112,8 +110,6 @@ const CustomComponent = () => {
           currentPage={1}
           itemsPerPage={20}
           displayedNumbersCount={6}
-          hasFirstLast={true}
-          hasNextPrevious={true}
           firstBtnProps={{
             title: 'First page',
           }}
@@ -187,14 +183,11 @@ simply by adding `dir` prop to html tag the package with switch to rtl.
 | totalItems | `Number` | true (if no totalPages) | number of total items. |
 | itemsPerPage | `Number` | true | number of displayed items per page. |
 | displayedNumbersCount | `1,2,3,4,5,6,7,8` | false | number of displayed pagination buttons to be shown. /default [6] |
-| hasNextPrevious | `Boolean` | false | whether to display previous/next buttons or not. |
 | previousBtnContent | `string | React Node` | false | content for previous button. |
 | nextBtnContent | `string | React Node` | false | content for next button. |
-| hasFirstLast | `Boolean` | false | whether to display first/last buttons or not. |
 | firstBtnContent | `string | React Node` | false | content for first button. |
 | lastBtnContent | `string | React Node` | false | content for last button. |
-| hasNumbersGap | `Boolean` | false | whether to display numbers gap (...) to shortcut to first/last page or not. |
-| numbersGapBtnContent | `string | React Node` | false | content for gap button. |
+| numbersGapBtnContent | `string | React Node` | false | content for gap button whether to display numbers gap (...) to shortcut to first/last page or not. |
 | numberBtnProps | `HTML Button native props` | defaults | native props of page number button. |
 | previousBtnProps | `HTML Button native props` | defaults | native props of previous page button. |
 | nextBtnProps | `HTML Button native props` | defaults | native props of next page button. |
