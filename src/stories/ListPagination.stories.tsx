@@ -1,15 +1,12 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import {
-  ListPagination,
-  ListPaginationProps,
-} from '@components/listPagination';
+import { Listing, ListingProps } from '../components/listing';
 import { useState, useEffect } from 'react';
-import { Pagination, PaginationProps } from '@components/pagination';
+import { Pagination, PaginationProps } from '../components/pagination';
 
 export default {
   title: 'List Pagination',
-  component: ListPagination,
+  component: Listing,
   argTypes: {
     display: {
       defaultValue: 'Grid',
@@ -22,16 +19,16 @@ export default {
       options: ['ContentLoader', 'Loading...'],
     },
   },
-} as ComponentMeta<typeof ListPagination>;
+} as ComponentMeta<typeof Listing>;
 
 const Template: ComponentStory<any> = (
-  args: ListPaginationProps & { pagination: PaginationProps }
+  args: ListingProps & { pagination: PaginationProps }
 ) => {
   const { pagination, ...listArgs } = args;
   return (
-    <ListPagination {...listArgs}>
+    <Listing {...listArgs}>
       <Pagination {...pagination} />
-    </ListPagination>
+    </Listing>
   );
 };
 
@@ -66,10 +63,7 @@ Primary.args = {
     currentPage: '1',
     itemsPerPage: 20,
     displayedNumbersCount: 6,
-    hasFirstLast: true,
-    hasNextPrevious: true,
-    hasNumbersGap: true,
-    numbersGapBtnContent: 'GAP',
+    numbersGapBtnContent: '...',
     previousBtnContent: 'previous',
     nextBtnContent: 'next',
     firstBtnContent: 'first',
@@ -92,7 +86,7 @@ const paginateFlights = async (page: number, size: number) => {
   return await response.json();
 };
 const AsyncTemplate: ComponentStory<any> = (
-  args: ListPaginationProps & { pagination: PaginationProps }
+  args: ListingProps & { pagination: PaginationProps }
 ) => {
   const { pagination, ...listArgs } = args;
   const [totalPages, setTotalPages] = useState(0);
@@ -133,7 +127,7 @@ const AsyncTemplate: ComponentStory<any> = (
     loadFlights(pageNumber - 1, 20);
   };
   return (
-    <ListPagination {...listArgs} items={items}>
+    <Listing {...listArgs} items={items}>
       <Pagination
         {...pagination}
         totalPages={totalPages}
@@ -143,7 +137,7 @@ const AsyncTemplate: ComponentStory<any> = (
         OnPreBtnClick={previousPage}
         OnNextBtnClick={nextPage}
       />
-    </ListPagination>
+    </Listing>
   );
 };
 
@@ -160,8 +154,6 @@ Asynchronous.args = {
     currentPage: 1,
     itemsPerPage: 20,
     displayedNumbersCount: 6,
-    hasFirstLast: true,
-    hasNextPrevious: true,
     styles: {
       position: 'right',
       numberBtnClass: 'btn-primary',

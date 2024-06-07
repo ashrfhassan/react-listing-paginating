@@ -7,7 +7,7 @@ const pkg = require('./package.json');
 
 module.exports = {
   entry: {
-    index: './src/index.ts',
+    index: './index.ts',
   },
   target: 'web',
   devtool: 'inline-source-map',
@@ -104,8 +104,8 @@ module.exports = {
         exclude: [/node_modules/],
       },
       {
-        test: /\.scss$/,
-        use: ['css-loader', 'sass-loader'],
+        test: /\.s?css$/i,
+        use: ['css-loader', 'postcss-loader', 'sass-loader'],
         include: path.resolve(__dirname, 'src'),
         exclude: [/node_modules/],
       },

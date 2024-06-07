@@ -1,14 +1,14 @@
-import { PaginationProps } from '@components/pagination';
+import { PaginationProps } from '../../components/pagination';
 import React from 'react';
 import './style.scss';
 
 const GridContentLoader = React.lazy(
-  () => import('@components/contentLoader/grid')
+  () => import('../../components/contentLoader/grid')
 );
 const RowContentLoader = React.lazy(
-  () => import('@components/contentLoader/row')
+  () => import('../../components/contentLoader/row')
 );
-export interface ListPaginationProps {
+export interface ListingProps {
   children?: React.ReactElement<PaginationProps>;
   items: React.ReactNode[];
   display?: 'Grid' | 'Rows';
@@ -26,8 +26,8 @@ export interface ListPaginationProps {
   };
 }
 
-export const ListPagination = (
-  props: ListPaginationProps = {
+export const Listing = (
+  props: ListingProps = {
     items: [],
     display: 'Grid',
     isLoading: false,

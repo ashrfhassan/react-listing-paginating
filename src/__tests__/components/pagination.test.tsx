@@ -7,7 +7,7 @@ import {
   fireEvent,
   act,
 } from '../../jestSetup/render';
-import { Pagination } from '@components/pagination';
+import { Pagination } from '../../components/pagination';
 
 describe('testing login form behaviour for arabic', () => {
   beforeAll(() => {
@@ -22,8 +22,6 @@ describe('testing login form behaviour for arabic', () => {
         currentPage={1}
         itemsPerPage={20}
         displayedNumbersCount={6}
-        hasNextPrevious={true}
-        hasNumbersGap={true}
         previousBtnContent={'previous'}
         nextBtnContent={'next'}
       />
@@ -54,8 +52,6 @@ describe('testing login form behaviour for english', () => {
         currentPage={1}
         itemsPerPage={20}
         displayedNumbersCount={6}
-        hasNextPrevious={true}
-        hasNumbersGap={true}
         previousBtnContent={'previous'}
         nextBtnContent={'next'}
       />
