@@ -45,7 +45,7 @@ yarn add react-listing-pagination
 
 ```jsx
 import { useState } from 'react';
-import { ListPagination, Pagination } from 'react-listing-pagination';
+import { Listing, Pagination } from 'react-listing-pagination';
 
 const CustomComponent = () => {
   const [totalPages, setTotalPages] = useState(1000);
@@ -53,7 +53,7 @@ const CustomComponent = () => {
 
   return (
     <>
-      <ListPagination
+      <Listing
         items={items}
         display={'Grid'}
         numberOfItemsPerRow={2}
@@ -69,8 +69,6 @@ const CustomComponent = () => {
           currentPage={1}
           itemsPerPage={20}
           displayedNumbersCount={6}
-          hasFirstLast={true}
-          hasNextPrevious={true}
           firstBtnProps={{
             title: 'First page',
           }}
@@ -88,7 +86,7 @@ const CustomComponent = () => {
             numberBtnClass: 'btn-primary',
           }}
         />
-      </ListPagination>
+      </Listing>
     </>
   );
 };
@@ -99,7 +97,7 @@ const CustomComponent = () => {
 
 ```jsx
 import { useState } from 'react';
-import { ListPagination, Pagination } from 'react-listing-pagination';
+import { Listing, Pagination } from 'react-listing-pagination';
 
 const CustomComponent = () => {
   const [totalPages, setTotalPages] = useState(1000);
@@ -112,8 +110,6 @@ const CustomComponent = () => {
           currentPage={1}
           itemsPerPage={20}
           displayedNumbersCount={6}
-          hasFirstLast={true}
-          hasNextPrevious={true}
           firstBtnProps={{
             title: 'First page',
           }}
@@ -187,14 +183,11 @@ simply by adding `dir` prop to html tag the package with switch to rtl.
 | totalItems | `Number` | true (if no totalPages) | number of total items. |
 | itemsPerPage | `Number` | true | number of displayed items per page. |
 | displayedNumbersCount | `1,2,3,4,5,6,7,8` | false | number of displayed pagination buttons to be shown. /default [6] |
-| hasNextPrevious | `Boolean` | false | whether to display previous/next buttons or not. |
 | previousBtnContent | `string | React Node` | false | content for previous button. |
 | nextBtnContent | `string | React Node` | false | content for next button. |
-| hasFirstLast | `Boolean` | false | whether to display first/last buttons or not. |
 | firstBtnContent | `string | React Node` | false | content for first button. |
 | lastBtnContent | `string | React Node` | false | content for last button. |
-| hasNumbersGap | `Boolean` | false | whether to display numbers gap (...) to shortcut to first/last page or not. |
-| numbersGapBtnContent | `string | React Node` | false | content for gap button. |
+| numbersGapBtnContent | `string | React Node` | false | content for gap button whether to display numbers gap (...) to shortcut to first/last page or not. |
 | numberBtnProps | `HTML Button native props` | defaults | native props of page number button. |
 | previousBtnProps | `HTML Button native props` | defaults | native props of previous page button. |
 | nextBtnProps | `HTML Button native props` | defaults | native props of next page button. |

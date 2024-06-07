@@ -8,7 +8,7 @@ const GridContentLoader = React.lazy(
 const RowContentLoader = React.lazy(
   () => import('../../components/contentLoader/row')
 );
-export interface ListPaginationProps {
+export interface ListingProps {
   children?: React.ReactElement<PaginationProps>;
   items: React.ReactNode[];
   display?: 'Grid' | 'Rows';
@@ -26,8 +26,8 @@ export interface ListPaginationProps {
   };
 }
 
-export const ListPagination = (
-  props: ListPaginationProps = {
+export const Listing = (
+  props: ListingProps = {
     items: [],
     display: 'Grid',
     isLoading: false,
