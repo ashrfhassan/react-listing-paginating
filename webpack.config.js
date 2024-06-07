@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
+const { ids } = require('webpack');
 const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -13,7 +14,7 @@ module.exports = {
   devtool: 'inline-source-map',
   plugins: [
     new CleanWebpackPlugin(),
-    new webpack.ids.HashedModuleIdsPlugin(),
+    new ids.HashedModuleIdsPlugin(),
     new webpack.ProvidePlugin({
       process: require.resolve('process/browser'),
     }),
