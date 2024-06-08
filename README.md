@@ -49,6 +49,8 @@ import { Listing, Pagination } from 'react-listing-pagination';
 
 const CustomComponent = () => {
   const [totalPages, setTotalPages] = useState(1000);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 20;
   const [items, setItems] = useState<any>([]);
 
   return (
@@ -63,29 +65,48 @@ const CustomComponent = () => {
           itemClass: 'd-flex justify-content-center',
         }}
       >
-        <Pagination
-          totalPages={totalPages}
-          onChangePage={(pageNumber: number, event: any) => { console.log('current page is ' + pageNumber)}}
-          currentPage={1}
-          itemsPerPage={20}
-          displayedNumbersCount={6}
-          firstBtnProps={{
-            title: 'First page',
-          }}
-          lastBtnProps={{
-            title: 'Last page',
-          }}
-          previousBtnProps={{
-            title: 'Previous page',
-          }}
-          nextBtnProps={{
-            title: 'Next page',
-          }}
-          styles={{
-            position:'center',
-            numberBtnClass: 'btn-primary',
-          }}
-        />
+          <Pagination
+            totalItems={totalPages}
+            currentPage={parseInt(currentPage.toString())}
+            itemsPerPage={itemsPerPage}
+            displayedNumbersCount={6}
+            onChangePage={(pageNumber: number) => {
+              console.log(pageNumber);
+            }}
+            OnPreBtnClick={(pageNumber: number) => {
+              console.log(pageNumber);
+            }}
+            OnNextBtnClick={(pageNumber: number) => {
+              console.log(pageNumber);
+            }}
+            previousBtnContent={
+              <div className='d-flex font-gull-grey mt-0'>
+                <BsArrowLeft
+                  size={20}
+                  className={'arrow-pagination arrow-icon'}
+                />
+                <div>
+                  {intl.formatMessage({ id: 'global.pagination.previous' })}
+                </div>
+              </div>
+            }
+            nextBtnContent={
+              <div className='d-flex font-gull-grey mt-0'>
+                <div>
+                  {intl.formatMessage({ id: 'global.pagination.next' })}
+                </div>
+                <BsArrowRight
+                  size={20}
+                  className={'arrow-pagination arrow-icon'}
+                />
+              </div>
+            }
+            styles={{
+              position: 'center',
+              numberBtnClass: `px-3 ${BtnStyles['button-light']} mx-1`,
+              activeBtnClass: `${'active-button'} mx-1`,
+            }}
+          />
       </Listing>
     </>
   );
@@ -100,16 +121,14 @@ import { useState } from 'react';
 import { Listing, Pagination } from 'react-listing-pagination';
 
 const CustomComponent = () => {
-  const [totalPages, setTotalPages] = useState(1000);
-
   return (
     <>
         <Pagination
-          totalPages={totalPages}
-          onChangePage={(pageNumber: number, event: any) => { console.log('current page is ' + pageNumber)}}
+          totalPages={200}
           currentPage={1}
           itemsPerPage={20}
           displayedNumbersCount={6}
+          onChangePage={(pageNumber: number, event: any) => { console.log('current page is ' + pageNumber)}}
           firstBtnProps={{
             title: 'First page',
           }}
@@ -182,7 +201,7 @@ simply by adding `dir` prop to html tag the package with switch to rtl.
 | totalPages | `Number` | true (if no totalItems) | number of total pages. |
 | totalItems | `Number` | true (if no totalPages) | number of total items. |
 | itemsPerPage | `Number` | true | number of displayed items per page. |
-| displayedNumbersCount | `1,2,3,4,5,6,7,8` | false | number of displayed pagination buttons to be shown. /default [6] |
+| displayedNumbersCount | `Number` | false | number of displayed pagination buttons to be shown. /default [6] (important!! this number doesn't include gap property buttons count) |
 | previousBtnContent | `string | React Node` | false | content for previous button. |
 | nextBtnContent | `string | React Node` | false | content for next button. |
 | firstBtnContent | `string | React Node` | false | content for first button. |

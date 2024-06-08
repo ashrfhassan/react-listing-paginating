@@ -1,11 +1,10 @@
-import _ from 'lodash';
 import React, { useState, useEffect } from 'react';
 import './style.scss';
 
 interface PaginationBaseProps {
   currentPage: number;
   itemsPerPage: number;
-  displayedNumbersCount?: 1 | 2 | 3 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+  displayedNumbersCount: number;
   previousBtnContent?: string | React.ReactNode;
   nextBtnContent?: string | React.ReactNode;
   firstBtnContent?: string | React.ReactNode;
@@ -84,47 +83,72 @@ export const Pagination = (
     },
     'totalPages' in props ? [props.totalPages] : [props.totalItems]
   );
-
+  const calcNumbersCountBeforeAfterCurrent = (
+    pagesCount: number,
+    displayedNumbersCount: number,
+    currentPage: number
+  ): {
+    numbersCountBeforeCurrent: number;
+    numbersCountAfterCurrent: number;
+  } => {
+    const displayedNumbersCountWithoutCurrent = displayedNumbersCount - 1;
+    const isOddCount = displayedNumbersCountWithoutCurrent % 2 !== 0;
+    const halfDisplayedNumbersCount = Math.floor(
+      displayedNumbersCountWithoutCurrent / 2
+    );
+    let numbersCountBeforeCurrent = halfDisplayedNumbersCount;
+    let numbersCountAfterCurrent = halfDisplayedNumbersCount;
+    if (currentPage - numbersCountBeforeCurrent < 1) {
+      const diffNumber = numbersCountBeforeCurrent - currentPage + 1;
+      numbersCountBeforeCurrent -= diffNumber;
+      numbersCountAfterCurrent += diffNumber;
+      if (isOddCount) numbersCountAfterCurrent++;
+      if (currentPage + numbersCountAfterCurrent > pagesCount) {
+        numbersCountAfterCurrent = pagesCount - currentPage;
+      }
+    } else if (currentPage + numbersCountAfterCurrent >= pagesCount) {
+      const diffNumber = currentPage + numbersCountAfterCurrent - pagesCount;
+      numbersCountAfterCurrent -= diffNumber;
+      numbersCountBeforeCurrent += diffNumber;
+      if (isOddCount) numbersCountBeforeCurrent++;
+      if (currentPage - numbersCountBeforeCurrent < 1) {
+        numbersCountBeforeCurrent = currentPage - 1;
+      }
+    } else {
+      if (isOddCount) numbersCountAfterCurrent++;
+    }
+    return {
+      numbersCountBeforeCurrent,
+      numbersCountAfterCurrent,
+    };
+  };
   const generateNumbers = (
     pagesCount: number,
     displayedNumbersCount: number,
     currentPage: number,
     gapContent?: string | React.ReactNode
   ) => {
-    // start listing numbers from current page
-    let start =
-      Math.floor((currentPage - 1) / displayedNumbersCount) *
-      displayedNumbersCount;
-    const generatedNumbers = [
-      ...Array.from(
-        {
-          length: displayedNumbersCount - 1,
-        },
-        (_, i) => i + 1
-      ),
-    ];
-    // adding previous and next page numbers depending on current
-    if (currentPage === generatedNumbers[0] + start && currentPage !== 1) {
-      start--;
+    const { numbersCountBeforeCurrent, numbersCountAfterCurrent } =
+      calcNumbersCountBeforeAfterCurrent(
+        pagesCount,
+        displayedNumbersCount,
+        currentPage
+      );
+    let pagesNumbers: number[] = [];
+    pagesNumbers.push(currentPage);
+    for (let i = 1; i <= numbersCountBeforeCurrent; i++) {
+      pagesNumbers.unshift(currentPage - i);
     }
-    if (currentPage === generatedNumbers[generatedNumbers.length - 1] + start) {
-      start++;
+    for (let i = 1; i <= numbersCountAfterCurrent; i++) {
+      pagesNumbers.push(currentPage + i);
     }
-    let pagesNumbers = generatedNumbers.map((number) => {
-      const pageNumber = start + number;
-      return pageNumber <= pagesCount ? pageNumber : -1;
-    });
-    // clean numbers array after mapping
-    _.remove(pagesNumbers, (val) => val === -1);
     // add numbers gap
     if (gapContent) {
-      if (currentPage <= pagesCount - 7) {
-        if (pagesNumbers[pagesNumbers.length - 1] === pagesCount)
-          pagesNumbers.pop();
-        pagesNumbers.push(-1);
+      if (currentPage <= pagesCount - 10) {
+        pagesNumbers.push(-1); // refers to gap button
         pagesNumbers.push(pagesCount);
       }
-      if (currentPage >= 7) {
+      if (currentPage >= 10) {
         pagesNumbers = [1, -1].concat(pagesNumbers);
       }
     }
@@ -184,12 +208,9 @@ export const Pagination = (
         {/* page numbers */}
         <React.Fragment>
           {generateNumbers(
-            pagesCount,
-            props.displayedNumbersCount &&
-              props.displayedNumbersCount < pagesCount
-              ? props.displayedNumbersCount
-              : pagesCount,
-            currentPage,
+            parseInt(pagesCount.toString()),
+            parseInt(props.displayedNumbersCount.toString()),
+            parseInt(currentPage.toString()),
             props.numbersGapBtnContent
           ).map((number: number, index: number) => {
             return (

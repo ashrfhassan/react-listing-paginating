@@ -1,3 +1,11 @@
+# Release Notes
+
+## 1.0.1 (Jun 8, 2024)
+
+- refactored numbers generation function
+- removed unnecessary code
+- removed unneeded dependencies
+
 ## 1.0.1 (Jun 7, 2024)
 
 - updated component name from "ListPagination to Listing".
