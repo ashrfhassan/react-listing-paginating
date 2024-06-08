@@ -35,12 +35,5 @@
     "./declaration.d.ts",
     "./index.ts"
   ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "coverage",
-    "docs",
-    "docs-build",
-    "docs-hosting"
-  ]
+  "exclude": ["node_modules", "dist", "coverage", "docs", "docs-build"]
 }
