@@ -1,6 +1,6 @@
 {
   "name": "react-listing-pagination",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "react listing and paginating component.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
