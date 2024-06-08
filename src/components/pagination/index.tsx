@@ -4,7 +4,7 @@ import './style.scss';
 interface PaginationBaseProps {
   currentPage: number;
   itemsPerPage: number;
-  displayedNumbersCount: 1 | 2 | 3 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+  displayedNumbersCount: number;
   previousBtnContent?: string | React.ReactNode;
   nextBtnContent?: string | React.ReactNode;
   firstBtnContent?: string | React.ReactNode;
@@ -144,13 +144,11 @@ export const Pagination = (
     }
     // add numbers gap
     if (gapContent) {
-      if (currentPage <= pagesCount - 7) {
-        if (pagesNumbers[pagesNumbers.length - 1] === pagesCount)
-          pagesNumbers.pop();
-        pagesNumbers.push(-1);
+      if (currentPage <= pagesCount - 10) {
+        pagesNumbers.push(-1); // refers to gap button
         pagesNumbers.push(pagesCount);
       }
-      if (currentPage >= 7) {
+      if (currentPage >= 10) {
         pagesNumbers = [1, -1].concat(pagesNumbers);
       }
     }

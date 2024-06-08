@@ -1,7 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import { Listing, ListingProps } from '../components/listing';
-import { useState, useEffect } from 'react';
 import { Pagination, PaginationProps } from '../components/pagination';
 
 export default {
@@ -63,7 +62,7 @@ Primary.args = {
     currentPage: '1',
     itemsPerPage: 20,
     displayedNumbersCount: 6,
-    //  numbersGapBtnContent: '...',
+    numbersGapBtnContent: '...',
     previousBtnContent: 'previous',
     nextBtnContent: 'next',
     firstBtnContent: 'first',

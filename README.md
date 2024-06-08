@@ -182,7 +182,7 @@ simply by adding `dir` prop to html tag the package with switch to rtl.
 | totalPages | `Number` | true (if no totalItems) | number of total pages. |
 | totalItems | `Number` | true (if no totalPages) | number of total items. |
 | itemsPerPage | `Number` | true | number of displayed items per page. |
-| displayedNumbersCount | `1,2,3,4,5,6,7,8` | false | number of displayed pagination buttons to be shown. /default [6] |
+| displayedNumbersCount | `Number` | false | number of displayed pagination buttons to be shown. /default [6] (important this number doesn't include gap property buttons count) |
 | previousBtnContent | `string | React Node` | false | content for previous button. |
 | nextBtnContent | `string | React Node` | false | content for next button. |
 | firstBtnContent | `string | React Node` | false | content for first button. |
