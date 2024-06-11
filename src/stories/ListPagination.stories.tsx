@@ -2,6 +2,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import { Listing, ListingProps } from '../components/listing';
 import { Pagination, PaginationProps } from '../components/pagination';
+import { useEffect, useState } from 'react';
 
 export default {
   title: 'List Pagination',
@@ -20,17 +21,6 @@ export default {
   },
 } as ComponentMeta<typeof Listing>;
 
-const Template: ComponentStory<any> = (
-  args: ListingProps & { pagination: PaginationProps }
-) => {
-  const { pagination, ...listArgs } = args;
-  return (
-    <Listing {...listArgs}>
-      <Pagination {...pagination} />
-    </Listing>
-  );
-};
-
 // data
 const items = [
   ...Array.from(
@@ -41,12 +31,37 @@ const items = [
   ),
 ].map((val, index) => <div key={index}>Item {val}</div>);
 
+const Template: ComponentStory<any> = (
+  args: ListingProps & { pagination: PaginationProps }
+) => {
+  const { pagination, ...listArgs } = args;
+  const [displayedItems, setDisplayedItems] = useState<any>([]);
+  useEffect(() => {
+    setDisplayedItems(items.slice(0, pagination.itemsPerPage));
+  }, []);
+
+  return (
+    <Listing {...listArgs} items={displayedItems}>
+      <Pagination
+        {...pagination}
+        onChangePage={(pageNumber: number) => {
+          setDisplayedItems(
+            items.slice(
+              (pageNumber - 1) * (pagination.itemsPerPage as number),
+              pageNumber * (pagination.itemsPerPage as number)
+            )
+          );
+        }}
+      />
+    </Listing>
+  );
+};
+
 export const Primary = Template.bind({});
 Primary.args = {
-  items: items.slice(0, 20),
   display: 'Grid',
   numberOfItemsPerRow: 2,
-  isLoading: true,
+  isLoading: false,
   loader: 'ContentLoader',
   header: <div>this is header.</div>,
   footerLeftActions: <div>this is left footer.</div>,
@@ -58,9 +73,9 @@ Primary.args = {
     footerClass: '',
   },
   pagination: {
-    totalItems: 702,
+    totalItems: 1000,
     currentPage: '1',
-    itemsPerPage: 20,
+    itemsPerPage: 30,
     displayedNumbersCount: 6,
     numbersGapBtnContent: '...',
     previousBtnContent: 'previous',
