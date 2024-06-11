@@ -1,6 +1,6 @@
 # Release Notes
 
-## 1.0.1 (Jun 8, 2024)
+## 1.1.0 (Jun 8, 2024)
 
 - refactored numbers generation function
 - removed unnecessary code
