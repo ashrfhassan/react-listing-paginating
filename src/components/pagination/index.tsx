@@ -3,7 +3,6 @@ import './style.scss';
 
 interface PaginationBaseProps {
   currentPage: number;
-  itemsPerPage: number;
   displayedNumbersCount: number;
   previousBtnContent?: string | React.ReactNode;
   nextBtnContent?: string | React.ReactNode;
@@ -49,27 +48,25 @@ interface PaginationBaseProps {
 
 interface RequireTotalItems extends PaginationBaseProps {
   totalItems: number;
+  itemsPerPage: number;
+  // disabled props
+  totalPages?: never;
 }
 
 interface RequireTotalPages extends PaginationBaseProps {
   totalPages: number;
+  // disabled props
+  totalItems?: never;
+  itemsPerPage?: never;
 }
 
 export type PaginationProps = RequireTotalItems | RequireTotalPages;
 
-export const Pagination = (
-  props: PaginationProps = {
-    currentPage: 1,
-    totalItems: 1000,
-    totalPages: 20,
-    itemsPerPage: 20,
-    displayedNumbersCount: 6,
-  }
-) => {
+export const Pagination = (props: PaginationProps) => {
   const [pagesCount, setPagesCount] = useState(
     'totalPages' in props
-      ? props.totalPages
-      : undefined || Math.ceil(props.totalItems / props.itemsPerPage)
+      ? (props.totalPages as number)
+      : Math.ceil(props.totalItems / props.itemsPerPage)
   );
   const [currentPage, setCurrentPage] = useState(props.currentPage);
 
@@ -77,8 +74,8 @@ export const Pagination = (
     () => {
       setPagesCount(
         'totalPages' in props
-          ? props.totalPages
-          : undefined || Math.ceil(props.totalItems / props.itemsPerPage)
+          ? (props.totalPages as number)
+          : Math.ceil(props.totalItems / props.itemsPerPage)
       );
     },
     'totalPages' in props ? [props.totalPages] : [props.totalItems]
