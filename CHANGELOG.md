@@ -1,5 +1,11 @@
 # Release Notes
 
+## 1.1.1 (Jun 11, 2024)
+
+- changed totalPages prop and totalItems to only select one of them.
+- updated storybook listing
+- fixed docs
+
 ## 1.1.0 (Jun 8, 2024)
 
 - refactored numbers generation function
