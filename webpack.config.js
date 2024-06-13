@@ -5,8 +5,11 @@ const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const pkg = require('./package.json');
+const BundleAnalyzerPlugin =
+  require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
+  mode: 'production',
   entry: {
     index: './index.ts',
   },
@@ -18,6 +21,7 @@ module.exports = {
     new webpack.ProvidePlugin({
       process: require.resolve('process/browser'),
     }),
+    // new BundleAnalyzerPlugin(),
   ],
   externals: Object.keys(pkg.dependencies),
   resolve: {
@@ -53,11 +57,17 @@ module.exports = {
     },
   },
   optimization: {
+    nodeEnv: 'production',
+    removeAvailableModules: true,
+    removeEmptyChunks: true,
+    splitChunks: {
+      chunks: 'all',
+    },
     minimize: true,
     minimizer: [
       new TerserPlugin({
-        include: /\.min\.js$/,
         minify: TerserPlugin.uglifyJsMinify,
+        extractComments: true,
         terserOptions: {
           sourceMap: true,
         },
@@ -106,7 +116,7 @@ module.exports = {
       },
       {
         test: /\.s?css$/i,
-        use: ['css-loader', 'postcss-loader', 'sass-loader'],
+        use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
         include: path.resolve(__dirname, 'src'),
         exclude: [/node_modules/],
       },

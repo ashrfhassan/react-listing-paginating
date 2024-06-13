@@ -44,7 +44,7 @@ const Template: ComponentStory<any> = (
     <Listing {...listArgs} items={displayedItems}>
       <Pagination
         {...pagination}
-        onChangePage={(pageNumber: number) => {
+        onPageChange={(pageNumber: number) => {
           setDisplayedItems(
             items.slice(
               (pageNumber - 1) * (pagination.itemsPerPage as number),
@@ -64,8 +64,6 @@ Primary.args = {
   isLoading: false,
   loader: 'ContentLoader',
   header: <div>this is header.</div>,
-  footerLeftActions: <div>this is left footer.</div>,
-  footerRightActions: <div>this is right footer.</div>,
   styles: {
     containerClass: '',
     headerClass: 'text-center',

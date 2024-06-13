@@ -70,7 +70,7 @@ const CustomComponent = () => {
             itemsPerPage={itemsPerPage}
             currentPage={parseInt(currentPage.toString())}
             displayedNumbersCount={6}
-            onChangePage={(pageNumber: number) => {
+            onPageChange={(pageNumber: number) => {
               console.log(pageNumber);
             }}
             OnPreBtnClick={(pageNumber: number) => {
@@ -118,33 +118,39 @@ const CustomComponent = () => {
 
 ```jsx
 import { useState } from 'react';
-import { Listing, Pagination } from 'react-listing-pagination';
+import { Pagination } from 'react-listing-pagination';
 
 const CustomComponent = () => {
   return (
     <>
-        <Pagination
-          totalPages={200}
-          currentPage={1}
-          displayedNumbersCount={6}
-          onChangePage={(pageNumber: number, event: any) => { console.log('current page is ' + pageNumber)}}
-          firstBtnProps={{
-            title: 'First page',
-          }}
-          lastBtnProps={{
-            title: 'Last page',
-          }}
-          previousBtnProps={{
-            title: 'Previous page',
-          }}
-          nextBtnProps={{
-            title: 'Next page',
-          }}
-          styles={{
-            position:'center',
-            numberBtnClass: 'btn-primary',
-          }}
-        />
+      <Pagination
+        totalPages={200}
+        currentPage={1}
+        displayedNumbersCount={6}
+        onPageChange={(pageNumber: number, event: any) => {
+          console.log("current page is " + pageNumber);
+        }}
+        firstBtnContent={"first"}
+        firstBtnProps={{
+          title: "First page",
+        }}
+        lastBtnContent={"last"}
+        lastBtnProps={{
+          title: "Last page",
+        }}
+        previousBtnContent={"previous"}
+        previousBtnProps={{
+          title: "Previous page",
+        }}
+        nextBtnContent={"next"}
+        nextBtnProps={{
+          title: "Next page",
+        }}
+        styles={{
+          position: "center",
+          numberBtnClass: "btn-primary",
+        }}
+      />
     </>
   );
 };
@@ -211,7 +217,8 @@ simply by adding `dir` prop to html tag the package with switch to rtl.
 | nextBtnProps | `HTML Button native props` | defaults | native props of next page button. |
 | firstBtnProps | `HTML Button native props` | defaults | native props of first page button. |
 | lastBtnProps | `HTML Button native props` | defaults | native props of last page button. |
-| onChangePage | `(pageNumber, event?) => void` | false | invoked after clicking on a paginating number. |
+| onPageChange | `(pageNumber) => void` | false | invoked after current page changed. |
+| onNumberBtnClick | `(pageNumber, event?) => void` | false | invoked after clicking on a paginating number. |
 | OnPreBtnClick | `(pageNumber, event?) => void` | false | invoked after clicking on a paginating previous button. |
 | OnNextBtnClick | `(pageNumber, event?) => void` | false | invoked after clicking on a paginating next button. |
 | OnFirstBtnClick | `(pageNumber, event?) => void` | false | invoked after clicking on a paginating first button. |

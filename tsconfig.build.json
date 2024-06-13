@@ -7,6 +7,8 @@
     "coverage",
     "docs",
     "docs-build",
+    "src/jestSetup",
+    "__mocks__",
     "./*.js",
     "./*.ts",
     "src/**/*.test.tsx",
