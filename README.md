@@ -127,7 +127,7 @@ const CustomComponent = () => {
         totalPages={200}
         currentPage={1}
         displayedNumbersCount={6}
-        onPageChange={(pageNumber: number, event: any) => {
+        onPageChange={(pageNumber: number) => {
           console.log("current page is " + pageNumber);
         }}
         firstBtnContent={"first"}
