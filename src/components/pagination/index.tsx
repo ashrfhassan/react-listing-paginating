@@ -14,7 +14,8 @@ interface PaginationBaseProps {
   nextBtnProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
   firstBtnProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
   lastBtnProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
-  onChangePage?: (
+  onPageChange?: (pageNumber: number) => void;
+  onNumberBtnClick?: (
     pageNumber: number,
     e?: React.MouseEvent<HTMLButtonElement>
   ) => void;
@@ -68,7 +69,13 @@ export const Pagination = (props: PaginationProps) => {
       ? (props.totalPages as number)
       : Math.ceil(props.totalItems / props.itemsPerPage)
   );
-  const [currentPage, setCurrentPage] = useState(props.currentPage);
+  const [currentPage, setCurrentPage] = useState(
+    parseInt(props.currentPage.toString())
+  );
+
+  useEffect(() => {
+    props.onPageChange && props.onPageChange(currentPage);
+  }, [currentPage]);
 
   useEffect(
     () => {
@@ -153,13 +160,9 @@ export const Pagination = (props: PaginationProps) => {
   };
 
   return (
-    <div
-      className={`container-fluid btn-container ${
-        props.styles?.containerClass || ''
-      }`}
-    >
+    <div className={`container-fluid ${props.styles?.containerClass || ''}`}>
       <div
-        className={`row m-0 ${
+        className={`row ${
           props.styles?.position
             ? 'justify-content-' + props.styles?.position
             : ''
@@ -167,7 +170,7 @@ export const Pagination = (props: PaginationProps) => {
       >
         {/* first page */}
         {props.firstBtnContent && pagesCount > 0 && currentPage !== 1 && (
-          <div className={'col px-0 flex-content justify-content-center'}>
+          <div className={'col d-contents'}>
             <button
               {...props.firstBtnProps}
               className={`btn ${props.styles?.firstBtnClass ?? ''}`}
@@ -183,7 +186,7 @@ export const Pagination = (props: PaginationProps) => {
         )}
         {/* previous page */}
         {props.previousBtnContent && pagesCount > 0 && currentPage !== 1 && (
-          <div className={'col px-0 flex-content justify-content-center'}>
+          <div className={'col d-contents'}>
             <button
               {...props.previousBtnProps}
               className={`btn ${props.styles?.previousBtnClass ?? ''}`}
@@ -211,10 +214,7 @@ export const Pagination = (props: PaginationProps) => {
             props.numbersGapBtnContent
           ).map((number: number, index: number) => {
             return (
-              <div
-                key={`${number}-${index}`}
-                className={'col px-0 flex-content justify-content-center'}
-              >
+              <div key={`${number}-${index}`} className={'col d-contents'}>
                 <button
                   title={number != -1 ? number.toString() : undefined}
                   {...props.numberBtnProps}
@@ -226,7 +226,7 @@ export const Pagination = (props: PaginationProps) => {
                   onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                     if (number === -1) return;
                     setCurrentPage(number);
-                    props.onChangePage && props.onChangePage(number, e);
+                    props.onNumberBtnClick && props.onNumberBtnClick(number, e);
                   }}
                   disabled={number === -1}
                 >
@@ -240,7 +240,7 @@ export const Pagination = (props: PaginationProps) => {
         {props.nextBtnContent &&
           currentPage !== pagesCount &&
           pagesCount > 0 && (
-            <div className={'col px-0 flex-content justify-content-center'}>
+            <div className={'col d-contents'}>
               <button
                 {...props.nextBtnProps}
                 className={`btn ${props.styles?.nextBtnClass ?? ''}`}
@@ -265,7 +265,7 @@ export const Pagination = (props: PaginationProps) => {
         {props.lastBtnContent &&
           currentPage !== pagesCount &&
           pagesCount > 0 && (
-            <div className={'col px-0 flex-content justify-content-center'}>
+            <div className={'col d-contents'}>
               <button
                 {...props.lastBtnProps}
                 className={`btn ${props.styles?.lastBtnClass ?? ''}`}

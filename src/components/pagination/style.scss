@@ -1,3 +1,5 @@
+@use '../../styles/main.scss';
+
 [dir='rtl'] {
   .flip {
     transform: scaleX(-1);

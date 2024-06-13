@@ -1,2 +1,2 @@
-export * from './src/components/listing';
-export * from './src/components/pagination';
+export { Listing } from './src/components/listing';
+export { Pagination } from './src/components/pagination';

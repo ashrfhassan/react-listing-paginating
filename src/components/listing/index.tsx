@@ -16,8 +16,8 @@ export interface ListingProps {
   isLoading?: boolean;
   loader?: 'ContentLoader' | React.ReactNode;
   header?: React.ReactNode;
-  footerLeftActions?: React.ReactNode;
-  footerRightActions?: React.ReactNode;
+  footerLeft?: React.ReactNode;
+  footerRight?: React.ReactNode;
   styles?: {
     containerClass?: string;
     headerClass?: string;
@@ -83,15 +83,11 @@ export const Listing = (
       {/* Footer */}
       <div className={`row ${props.styles?.footerClass ?? ''}`}>
         {/* left footer */}
-        {props.footerLeftActions && (
-          <div className={'col'}>{props.footerLeftActions}</div>
-        )}
+        {props.footerLeft && <div className={'col'}>{props.footerLeft}</div>}
         {/* pagination */}
         <div className={'col'}>{props.children}</div>
         {/* right footer */}
-        {props.footerRightActions && (
-          <div className={'col'}>{props.footerLeftActions}</div>
-        )}
+        {props.footerRight && <div className={'col'}>{props.footerRight}</div>}
       </div>
     </div>
   );
