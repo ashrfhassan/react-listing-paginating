@@ -1,6 +1,6 @@
 {
   "name": "react-listing-pagination",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "react listing and paginating components that can generate numberic paginators.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
