@@ -1,5 +1,12 @@
 # Release Notes
 
+## 1.2.0 (Jun 13, 2024)
+
+- reduced package size by removing boostrap styles file.
+- added onNumberBtnClick and updated onPageChange
+- fixed webpack config
+- updated docs
+
 ## 1.1.1 (Jun 11, 2024)
 
 - changed totalPages prop and totalItems to only select one of them.
