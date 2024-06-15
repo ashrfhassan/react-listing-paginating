@@ -1,5 +1,3 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-
 import { Listing, ListingProps } from '../components/listing';
 import { Pagination, PaginationProps } from '../components/pagination';
 import { useEffect, useState } from 'react';
@@ -19,7 +17,7 @@ export default {
       options: ['ContentLoader', 'Loading...'],
     },
   },
-} as ComponentMeta<typeof Listing>;
+} as any;
 
 // data
 const items = [
@@ -31,7 +29,7 @@ const items = [
   ),
 ].map((val, index) => <div key={index}>Item {val}</div>);
 
-const Template: ComponentStory<any> = (
+const Template: any = (
   args: ListingProps & { pagination: PaginationProps }
 ) => {
   const { pagination, ...listArgs } = args;
