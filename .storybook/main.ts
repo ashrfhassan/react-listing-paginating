@@ -1,17 +1,21 @@
+import type { StorybookConfig } from '@storybook/react-webpack5';
 const path = require('path');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
-module.exports = {
-  stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+const config: StorybookConfig = {
+  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   addons: [
+    '@storybook/addon-webpack5-compiler-swc',
+    '@storybook/addon-onboarding',
     '@storybook/addon-links',
     '@storybook/addon-essentials',
+    '@chromatic-com/storybook',
     '@storybook/addon-interactions',
-    '@storybook/preset-create-react-app',
+    '@storybook/addon-styling-webpack',
   ],
-  framework: '@storybook/react',
-  core: {
-    builder: '@storybook/builder-webpack5',
+  framework: {
+    name: '@storybook/react-webpack5',
+    options: {},
   },
   webpackFinal: async (config, { configType }) => {
     // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'
@@ -22,8 +26,8 @@ module.exports = {
 
     // Allows importing sass or scss files
     config.module.rules.push({
-      test: /\.lazy\.scss|.sass$/,
-      use: ['style-loader', 'css-loader', 'sass-loader'],
+      test: /.scss|.sass$/,
+      use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
       include: path.resolve(__dirname, '../'),
     });
     config.module.rules.push({
@@ -79,3 +83,4 @@ module.exports = {
     return config;
   },
 };
+export default config;

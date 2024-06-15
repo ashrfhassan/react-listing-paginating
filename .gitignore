@@ -13,7 +13,7 @@
 # production
 /build
 /dist
-/docs-build
+/storybook-static
 /docs
 # misc
 .DS_Store
@@ -25,3 +25,5 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+*storybook.log
