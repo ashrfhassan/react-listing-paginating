@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const { ids } = require('webpack');
 const webpack = require('webpack');
